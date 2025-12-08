@@ -118,10 +118,12 @@ class DreamInterpreterService
       if response.success?
         response.parsed_response['choices'][0]['message']['content']
       else
+        Rails.logger.error("Erreur API OpenAI: #{response.code} - #{response.body}")
         generate_demo_interpretation
       end
     rescue => e
       Rails.logger.error("Erreur API IA: #{e.message}")
+      Rails.logger.error(e.backtrace.join("\n")) if Rails.env.development?
       generate_demo_interpretation
     end
   end
