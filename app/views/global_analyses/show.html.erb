@@ -1,20 +1,25 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-10">
+      <%= link_to global_analyses_path, class: "btn btn-mystic-secondary mb-4" do %>
+        <i class="bi bi-arrow-left"></i> Retour aux analyses globales
+      <% end %>
+
       <div class="mystic-hero">
         <h1><i class="bi bi-graph-up-arrow"></i> Analyse Globale</h1>
-        <p>Synthèse de vos <%= @dreams.count %> rêves enregistrés</p>
+        <p>Générée le <%= @global_analysis.created_at.strftime("%d/%m/%Y à %H:%M") %></p>
       </div>
 
       <div class="mystic-card">
         <h2><i class="bi bi-stars"></i> Interprétation Globale</h2>
         <div class="interpretation-text">
-          <%= @global_interpretation %>
+          <%= @global_analysis.interpretation %>
         </div>
       </div>
 
       <div class="text-center mt-4">
-        <%= link_to "Voir mes rêves", dreams_path, class: "btn btn-mystic" %>
+        <%= link_to "Voir mes rêves", dreams_path, class: "btn btn-mystic me-2" %>
+        <%= link_to "Nouvelle analyse", global_analyses_path, class: "btn btn-mystic-secondary" %>
       </div>
     </div>
   </div>

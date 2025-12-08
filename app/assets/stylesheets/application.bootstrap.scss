@@ -281,6 +281,119 @@ body.mystic-body {
   color: rgba(224, 224, 224, 0.6) !important;
 }
 
+// Loading overlay
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(10, 10, 15, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease;
+}
+
+.loading-spinner-container {
+  text-align: center;
+}
+
+.mystic-spinner {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 2rem;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 4px solid transparent;
+  border-top-color: $mystic-purple;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+
+  &:nth-child(1) {
+    border-top-color: $mystic-purple;
+    animation-duration: 1.5s;
+  }
+
+  &:nth-child(2) {
+    border-top-color: $mystic-pink;
+    animation-duration: 1.2s;
+    animation-direction: reverse;
+    width: 80%;
+    height: 80%;
+    top: 10%;
+    left: 10%;
+  }
+
+  &:nth-child(3) {
+    border-top-color: $mystic-gold;
+    animation-duration: 1.8s;
+    width: 60%;
+    height: 60%;
+    top: 20%;
+    left: 20%;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.loading-text {
+  color: $mystic-gold;
+  font-size: 1.25rem;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+  margin-top: 1rem;
+
+  i {
+    font-size: 2rem;
+    color: $mystic-purple;
+    display: block;
+    margin-bottom: 0.5rem;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  small {
+    display: block;
+    margin-top: 0.5rem;
+    color: rgba(224, 224, 224, 0.7);
+    font-size: 0.9rem;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
 // Responsive
 @media (max-width: 768px) {
   .mystic-hero h1 {
@@ -289,5 +402,14 @@ body.mystic-body {
 
   .mystic-card {
     padding: 1.5rem;
+  }
+
+  .mystic-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
   }
 }

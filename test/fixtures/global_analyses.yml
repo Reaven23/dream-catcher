@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  interpretation: MyText
+  created_at: 2025-12-08 17:41:30
+
+two:
+  user: two
+  interpretation: MyText
+  created_at: 2025-12-08 17:41:30

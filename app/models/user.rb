@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :dreams, dependent: :destroy
   has_many :analyses, through: :dreams
+  has_many :global_analyses, dependent: :destroy
 
   # Validations pour le quiz (appliquées seulement lors de la mise à jour du quiz)
   validates :first_name, presence: true, if: :validating_quiz?

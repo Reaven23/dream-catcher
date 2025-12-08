@@ -6,7 +6,7 @@
         <p>Décrivez votre rêve avec le plus de détails possible</p>
       </div>
 
-      <div class="mystic-card">
+      <div class="mystic-card position-relative" data-controller="loading">
         <%= form_with model: @dream, class: "mystic-form" do |f| %>
           <div class="mb-3">
             <%= f.label :title, "Titre du rêve", class: "form-label" %>
@@ -34,9 +34,25 @@
 
           <div class="d-flex justify-content-between">
             <%= link_to "Annuler", dreams_path, class: "btn btn-mystic-secondary" %>
-            <%= f.submit "Analyser mon rêve", class: "btn btn-mystic btn-lg" %>
+            <%= f.submit "Analyser mon rêve", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
           </div>
         <% end %>
+
+        <!-- Overlay de chargement -->
+        <div class="loading-overlay d-none" data-loading-target="overlay">
+          <div class="loading-spinner-container" data-loading-target="spinner">
+            <div class="mystic-spinner">
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
+            </div>
+            <p class="loading-text">
+              <i class="bi bi-stars"></i><br>
+              L'IA analyse votre rêve...<br>
+              <small>Plongez dans les mystères de votre inconscient</small>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

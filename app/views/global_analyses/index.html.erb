@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="mystic-hero">
+    <h1><i class="bi bi-graph-up-arrow"></i> Analyses Globales</h1>
+    <p>Synthèse de tous vos rêves pour identifier les patterns récurrents</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <% if @can_generate %>
+        <div class="mystic-card position-relative" data-controller="loading">
+          <h2><i class="bi bi-stars"></i> Générer une nouvelle analyse globale</h2>
+          <p class="mb-4">
+            Analysez l'ensemble de vos <strong><%= @dreams.count %></strong> rêve(s) enregistré(s) pour découvrir les thèmes récurrents et les messages de votre inconscient.
+          </p>
+
+          <%= form_with url: global_analyses_path, method: :post, class: "mystic-form" do |f| %>
+            <div class="text-center">
+              <%= f.submit "Générer l'analyse globale", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
+            </div>
+          <% end %>
+
+          <!-- Overlay de chargement -->
+          <div class="loading-overlay d-none" data-loading-target="overlay">
+            <div class="loading-spinner-container" data-loading-target="spinner">
+              <div class="mystic-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+              </div>
+              <p class="loading-text">
+                <i class="bi bi-stars"></i><br>
+                L'IA analyse tous vos rêves...<br>
+                <small>Découvrez les patterns de votre inconscient</small>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="mystic-card">
+          <div class="text-center">
+            <i class="bi bi-moon" style="font-size: 4rem; color: #6b46c1; margin-bottom: 1rem;"></i>
+            <h3>Aucun rêve enregistré</h3>
+            <p>Vous devez avoir enregistré au moins un rêve pour obtenir une analyse globale.</p>
+            <%= link_to "Enregistrer un rêve", new_dream_path, class: "btn btn-mystic mt-3" %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @global_analyses.any? %>
+        <div class="mt-5">
+          <h2 class="mb-4" style="color: #fbbf24;">
+            <i class="bi bi-clock-history"></i> Historique des analyses
+          </h2>
+
+          <% @global_analyses.each do |analysis| %>
+            <div class="dream-item">
+              <%= link_to global_analysis_path(analysis), class: "text-decoration-none" do %>
+                <div class="d-flex justify-content-between align-items-start">
+                  <div>
+                    <div class="dream-title">
+                      <i class="bi bi-graph-up-arrow"></i> Analyse globale
+                    </div>
+                    <div class="dream-date">
+                      <i class="bi bi-calendar"></i> <%= analysis.created_at.strftime("%d/%m/%Y à %H:%M") %>
+                    </div>
+                    <div class="dream-preview mt-2">
+                      <%= truncate(analysis.interpretation, length: 200) %>
+                    </div>
+                  </div>
+                  <div>
+                    <i class="bi bi-arrow-right" style="color: #6b46c1; font-size: 1.5rem;"></i>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="mystic-card mt-4 text-center">
+          <i class="bi bi-inbox" style="font-size: 3rem; color: #6b46c1; margin-bottom: 1rem;"></i>
+          <h3>Aucune analyse globale</h3>
+          <p>Générez votre première analyse globale pour découvrir les patterns dans vos rêves.</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
