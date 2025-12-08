@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <%= link_to dreams_path, class: "btn btn-mystic-secondary mb-4" do %>
+        <i class="bi bi-arrow-left"></i> Retour à la liste
+      <% end %>
+
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-moon-stars"></i> <%= @dream.title %></h2>
+        <p class="text-muted mb-3">
+          <i class="bi bi-calendar"></i> <%= @dream.date.strftime("%d/%m/%Y") %>
+        </p>
+        <div class="dream-content">
+          <h4 class="mb-3" style="color: #fbbf24;">Description du rêve</h4>
+          <p style="line-height: 1.8; white-space: pre-wrap;"><%= @dream.content %></p>
+        </div>
+      </div>
+
+      <% if @analysis.present? %>
+        <div class="mystic-card">
+          <h2><i class="bi bi-stars"></i> Interprétation</h2>
+          <div class="interpretation-text">
+            <%= @analysis.interpretation %>
+          </div>
+        </div>
+      <% else %>
+        <div class="mystic-card">
+          <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle"></i> L'analyse de ce rêve n'est pas encore disponible.
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<% if resource.errors.any? %>
+  <div class="alert alert-danger mystic-alert" role="alert">
+    <h4 class="alert-heading">
+      <i class="bi bi-exclamation-triangle"></i> <%= pluralize(resource.errors.count, "erreur") %> détectée(s) :
+    </h4>
+    <ul class="mb-0">
+      <% resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
