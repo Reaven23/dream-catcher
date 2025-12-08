@@ -1,0 +1,227 @@
+<div class="container">
+  <div class="mystic-hero">
+    <h1><i class="bi bi-person-circle"></i> Mon Profil</h1>
+    <p>Gérez votre compte et vos informations personnelles</p>
+  </div>
+
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <!-- Statistiques -->
+      <div class="row mb-4">
+        <div class="col-md-4 mb-3">
+          <div class="mystic-card text-center h-100">
+            <i class="bi bi-moon-stars" style="font-size: 3rem; color: #6b46c1;"></i>
+            <h3 class="mt-3" style="color: #fbbf24;"><%= @dreams_count %></h3>
+            <p class="text-muted mb-0">Rêves enregistrés</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="mystic-card text-center h-100">
+            <i class="bi bi-graph-up-arrow" style="font-size: 3rem; color: #ec4899;"></i>
+            <h3 class="mt-3" style="color: #fbbf24;"><%= @analyses_count %></h3>
+            <p class="text-muted mb-0">Analyses globales</p>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="mystic-card text-center h-100">
+            <i class="bi bi-calendar-check" style="font-size: 3rem; color: #3b82f6;"></i>
+            <h3 class="mt-3" style="color: #fbbf24;"><%= @user.created_at.strftime("%d/%m/%Y") %></h3>
+            <p class="text-muted mb-0">Membre depuis</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Informations personnelles -->
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-person-heart"></i> Informations personnelles</h2>
+        <p class="text-muted mb-4">Vos informations de base pour personnaliser l'expérience.</p>
+
+        <%= form_with model: @user, url: update_quiz_dashboard_path, method: :patch, class: "mystic-form" do |f| %>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :first_name, "Prénom", class: "form-label" %>
+              <%= f.text_field :first_name, class: "form-control", placeholder: "Votre prénom" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :age, "Âge", class: "form-label" %>
+              <%= f.number_field :age, class: "form-control", min: 1, max: 120, placeholder: "Votre âge" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :gender, "Genre", class: "form-label" %>
+              <%= f.select :gender, options_for_select(User::GENRES.map { |g| [g, g] }, @user.gender), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :pays, "Pays", class: "form-label" %>
+              <%= f.text_field :pays, class: "form-control", placeholder: "Votre pays" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :zodiac_sign, "Signe astrologique", class: "form-label" %>
+              <%= f.select :zodiac_sign, options_for_select(User::SIGNES_ASTRO.map { |s| [s, s] }, @user.zodiac_sign), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :relationship_status, "Situation affective", class: "form-label" %>
+              <%= f.select :relationship_status, options_for_select(User::SITUATIONS_AFFECTIVES.map { |s| [s, s] }, @user.relationship_status), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :situation_pro, "Situation professionnelle", class: "form-label" %>
+            <%= f.select :situation_pro, options_for_select(User::SITUATIONS_PRO.map { |s| [s, s] }, @user.situation_pro), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+          </div>
+
+          <div class="text-end">
+            <%= f.submit "Mettre à jour", class: "btn btn-mystic" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Sommeil et rêves -->
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-cloud-moon"></i> Sommeil et rêves</h2>
+        <p class="text-muted mb-4">Vos habitudes de sommeil et votre rapport aux rêves.</p>
+
+        <%= form_with model: @user, url: update_quiz_dashboard_path, method: :patch, class: "mystic-form" do |f| %>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :rappel_reves, "Fréquence de rappel des rêves", class: "form-label" %>
+              <%= f.select :rappel_reves, options_for_select(User::RAPPEL_REVES.map { |r| [r, r] }, @user.rappel_reves), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :reves_lucides, "Rêves lucides", class: "form-label" %>
+              <%= f.select :reves_lucides, options_for_select(User::REVES_LUCIDES.map { |r| [r, r] }, @user.reves_lucides), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :heure_sommeil, "Heure de coucher habituelle", class: "form-label" %>
+            <%= f.text_field :heure_sommeil, class: "form-control", placeholder: "Ex: 23h00" %>
+          </div>
+
+          <div class="text-end">
+            <%= f.submit "Mettre à jour", class: "btn btn-mystic" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Contexte émotionnel -->
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-heart-pulse"></i> Contexte émotionnel</h2>
+        <p class="text-muted mb-4">Votre état émotionnel actuel.</p>
+
+        <%= form_with model: @user, url: update_quiz_dashboard_path, method: :patch, class: "mystic-form" do |f| %>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :stress_niveau, "Niveau de stress (1-10)", class: "form-label" %>
+              <%= f.number_field :stress_niveau, class: "form-control", min: 1, max: 10 %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :humeur_generale, "Humeur générale", class: "form-label" %>
+              <%= f.select :humeur_generale, options_for_select(User::HUMEUR_OPTIONS.map { |h| [h, h] }, @user.humeur_generale), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :peurs_principales, "Peurs principales", class: "form-label" %>
+            <%= f.text_area :peurs_principales, class: "form-control", rows: 2, placeholder: "Décrivez vos peurs principales..." %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :emotions_recurrentes, "Émotions récurrentes dans vos rêves", class: "form-label" %>
+            <%= f.text_area :emotions_recurrentes, class: "form-control", rows: 2, placeholder: "Ex: peur, joie, confusion..." %>
+          </div>
+
+          <div class="text-end">
+            <%= f.submit "Mettre à jour", class: "btn btn-mystic" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Préférences d'analyse -->
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-sliders"></i> Préférences d'analyse</h2>
+        <p class="text-muted mb-4">Personnalisez le style de vos interprétations.</p>
+
+        <%= form_with model: @user, url: update_quiz_dashboard_path, method: :patch, class: "mystic-form" do |f| %>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :symbolisme, "Rapport au symbolisme", class: "form-label" %>
+              <%= f.select :symbolisme, options_for_select(User::SYMBOLISME_OPTIONS.map { |s| [s, s] }, @user.symbolisme), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :vision_reves, "Vision des rêves", class: "form-label" %>
+              <%= f.select :vision_reves, options_for_select(User::VISION_REVES_OPTIONS.map { |v| [v, v] }, @user.vision_reves), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <%= f.label :ton_prefere, "Ton préféré", class: "form-label" %>
+              <%= f.select :ton_prefere, options_for_select(User::TONS_PREFERES.map { |t| [t, t] }, @user.ton_prefere), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-4 mb-3">
+              <%= f.label :longueur_analyse, "Longueur d'analyse", class: "form-label" %>
+              <%= f.select :longueur_analyse, options_for_select(User::LONGUEURS_ANALYSE.map { |l| [l, l] }, @user.longueur_analyse), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+            <div class="col-md-4 mb-3">
+              <%= f.label :style_prefere, "Style d'analyse", class: "form-label" %>
+              <%= f.select :style_prefere, options_for_select(User::STYLES_ANALYSE.map { |s| [s, s] }, @user.style_prefere), { include_blank: "Sélectionnez..." }, class: "form-select" %>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <%= f.submit "Mettre à jour", class: "btn btn-mystic" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Informations du compte -->
+      <div class="mystic-card mb-4">
+        <h2><i class="bi bi-person-gear"></i> Informations du compte</h2>
+        <p class="text-muted mb-4">Modifiez votre email et votre mot de passe.</p>
+
+        <%= form_with model: @user, url: update_profile_dashboard_path, method: :patch, class: "mystic-form" do |f| %>
+          <div class="mb-3">
+            <%= f.label :email, "Email", class: "form-label" %>
+            <%= f.email_field :email, class: "form-control", placeholder: "votre@email.com" %>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.label :password, "Nouveau mot de passe", class: "form-label" %>
+              <%= f.password_field :password, class: "form-control", placeholder: "Laissez vide pour conserver l'actuel", autocomplete: "new-password" %>
+              <small class="text-muted">Minimum 6 caractères</small>
+            </div>
+            <div class="col-md-6 mb-3">
+              <%= f.label :password_confirmation, "Confirmer le mot de passe", class: "form-label" %>
+              <%= f.password_field :password_confirmation, class: "form-control", placeholder: "Confirmez le nouveau mot de passe", autocomplete: "new-password" %>
+            </div>
+          </div>
+
+          <div class="text-end">
+            <%= f.submit "Mettre à jour le compte", class: "btn btn-mystic" %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Zone dangereuse -->
+      <div class="mystic-card danger-zone">
+        <h2><i class="bi bi-exclamation-triangle"></i> Zone dangereuse</h2>
+        <p class="text-muted mb-4">Attention : la suppression de votre compte est irréversible.</p>
+
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div>
+            <strong style="color: #ec4899;">Supprimer mon compte</strong>
+            <p class="mb-0 text-muted">Tous vos rêves et analyses seront définitivement supprimés.</p>
+          </div>
+          <%= button_to "Supprimer mon compte", destroy_account_dashboard_path, method: :delete, class: "btn btn-danger", data: { action: "click->confirm#open", confirm_title: "Supprimer votre compte ?", confirm_message: "⚠️ <strong>ATTENTION</strong> ⚠️\n\nCette action est <strong>IRRÉVERSIBLE</strong>.\n\nTous vos rêves, analyses et données personnelles seront <strong>définitivement supprimés</strong>.", confirm_text: "Oui, supprimer mon compte", cancel_text: "Non, annuler", confirm_type: "danger" } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

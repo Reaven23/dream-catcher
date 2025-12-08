@@ -1,43 +1,41 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["spinner", "overlay", "button"]
+  static targets = ["overlay", "button"]
 
   connect() {
-    // Sauvegarder le texte original du bouton
     if (this.hasButtonTarget) {
       this.originalButtonText = this.buttonTarget.innerHTML
     }
 
-    // Écouter les événements Turbo pour gérer le loader
-    this.element.addEventListener("turbo:submit-start", this.show.bind(this))
-    this.element.addEventListener("turbo:submit-end", this.hide.bind(this))
+    // Écouter les événements Turbo pour cacher le loader après navigation
+    this.boundStop = this.stop.bind(this)
+    document.addEventListener("turbo:before-render", this.boundStop)
+    document.addEventListener("turbo:load", this.boundStop)
   }
 
   disconnect() {
-    this.element.removeEventListener("turbo:submit-start", this.show.bind(this))
-    this.element.removeEventListener("turbo:submit-end", this.hide.bind(this))
+    document.removeEventListener("turbo:before-render", this.boundStop)
+    document.removeEventListener("turbo:load", this.boundStop)
   }
 
-  show(event) {
+  // Appelé via data-action="click->loading#start" sur le bouton submit
+  start(event) {
+    // Afficher l'overlay
     if (this.hasOverlayTarget) {
-      this.overlayTarget.classList.remove("d-none")
+      this.overlayTarget.style.display = "flex"
     }
-    if (this.hasSpinnerTarget) {
-      this.spinnerTarget.classList.remove("d-none")
-    }
+
+    // Désactiver et changer le texte du bouton
     if (this.hasButtonTarget) {
       this.buttonTarget.disabled = true
       this.buttonTarget.innerHTML = '<i class="bi bi-hourglass-split"></i> Analyse en cours...'
     }
   }
 
-  hide(event) {
+  stop() {
     if (this.hasOverlayTarget) {
-      this.overlayTarget.classList.add("d-none")
-    }
-    if (this.hasSpinnerTarget) {
-      this.spinnerTarget.classList.add("d-none")
+      this.overlayTarget.style.display = "none"
     }
     if (this.hasButtonTarget) {
       this.buttonTarget.disabled = false

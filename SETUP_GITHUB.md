@@ -57,7 +57,7 @@ rm -rf .git
 # Réinitialiser Git
 git init
 git add .
-git commit -m "Initial commit - DreamWeaver app"
+git commit -m "Initial commit - DreamCatcher app"
 
 # Créer le dépôt sur GitHub (via l'interface web), puis :
 git remote add origin git@github.com:Reaven23/dream-catcher.git

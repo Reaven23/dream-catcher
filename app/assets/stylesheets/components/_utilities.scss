@@ -1,0 +1,18 @@
+// ========================================
+// Utilitaires
+// ========================================
+
+// Badge
+.badge {
+  padding: 0.5rem 1rem;
+  border-radius: $radius-lg;
+}
+
+// Text colors
+.text-mystic-gold {
+  color: $mystic-gold !important;
+}
+
+.text-muted {
+  color: $mystic-text-muted !important;
+}

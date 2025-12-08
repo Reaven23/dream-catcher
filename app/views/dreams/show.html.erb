@@ -1,9 +1,14 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-10">
-      <%= link_to dreams_path, class: "btn btn-mystic-secondary mb-4" do %>
-        <i class="bi bi-arrow-left"></i> Retour à la liste
-      <% end %>
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <%= link_to dreams_path, class: "btn btn-mystic-secondary" do %>
+          <i class="bi bi-arrow-left"></i> Retour à la liste
+        <% end %>
+        <%= button_to dream_path(@dream), method: :delete, class: "btn btn-danger", data: { action: "click->confirm#open", confirm_title: "Supprimer ce rêve ?", confirm_message: "Cette action supprimera définitivement le rêve <strong>\"#{@dream.title}\"</strong> ainsi que son analyse.\n\nCette action est irréversible.", confirm_text: "Supprimer", confirm_type: "danger" } do %>
+          <i class="bi bi-trash"></i> Supprimer ce rêve
+        <% end %>
+      </div>
 
       <div class="mystic-card mb-4">
         <h2><i class="bi bi-moon-stars"></i> <%= @dream.title %></h2>
@@ -19,8 +24,8 @@
       <% if @analysis.present? %>
         <div class="mystic-card">
           <h2><i class="bi bi-stars"></i> Interprétation</h2>
-          <div class="interpretation-text">
-            <%= @analysis.interpretation %>
+          <div class="interpretation-text markdown-content">
+            <%= markdown(@analysis.interpretation) %>
           </div>
         </div>
       <% else %>

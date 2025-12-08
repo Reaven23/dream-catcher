@@ -1,0 +1,429 @@
+// ========================================
+// Onboarding Quiz
+// ========================================
+
+.onboarding-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, $mystic-dark 0%, #1a1a2e 30%, #16213e 60%, $mystic-dark 100%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(107, 70, 193, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(251, 191, 36, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+// Header
+.onboarding-header {
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  background: rgba(10, 10, 15, 0.5);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid $mystic-border-primary;
+}
+
+.onboarding-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: $mystic-gold;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5);
+
+  i {
+    font-size: 2rem;
+    color: $mystic-purple;
+  }
+}
+
+.onboarding-progress-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.onboarding-progress-bar {
+  width: 200px;
+  height: 8px;
+  background: rgba(107, 70, 193, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.onboarding-progress-fill {
+  height: 100%;
+  width: 16.66%;
+  background: linear-gradient(90deg, $mystic-purple 0%, $mystic-pink 50%, $mystic-gold 100%);
+  border-radius: 4px;
+  transition: width 0.5s ease;
+}
+
+.onboarding-progress-text {
+  color: $mystic-text-muted;
+  font-size: 0.9rem;
+}
+
+// Form
+.onboarding-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+  padding: 2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+// Steps
+.onboarding-step {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 0;
+
+  &.d-none {
+    display: none !important;
+  }
+}
+
+.step-icon {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, rgba(107, 70, 193, 0.3) 0%, rgba(76, 29, 149, 0.3) 100%);
+  border: 2px solid $mystic-border-primary;
+  border-radius: $radius-circle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  animation: float 4s ease-in-out infinite;
+
+  i {
+    font-size: 3rem;
+    color: $mystic-gold;
+    text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
+  }
+}
+
+.step-title {
+  font-size: 2rem;
+  color: $mystic-gold;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  text-shadow: 0 0 15px rgba(251, 191, 36, 0.4);
+}
+
+.step-subtitle {
+  color: $mystic-text-light;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.step-content {
+  width: 100%;
+  max-width: 500px;
+}
+
+// Form groups
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.onboarding-label {
+  display: block;
+  color: $mystic-text-primary;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  font-size: 1.05rem;
+}
+
+.form-hint {
+  color: $mystic-text-muted;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  margin-top: -0.5rem;
+}
+
+// Inputs
+.onboarding-input,
+.onboarding-textarea {
+  width: 100%;
+  background: rgba(10, 10, 15, 0.6);
+  border: 2px solid $mystic-border-primary;
+  color: $mystic-text-primary;
+  border-radius: $radius-md;
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  transition: $transition-base;
+
+  &:focus {
+    outline: none;
+    border-color: $mystic-purple;
+    background: rgba(10, 10, 15, 0.8);
+    box-shadow: 0 0 20px rgba(107, 70, 193, 0.3);
+  }
+
+  &::placeholder {
+    color: $mystic-text-muted;
+  }
+
+  &.is-invalid {
+    border-color: #ef4444;
+    box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.onboarding-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+// Options (boutons de sélection)
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.option-btn {
+  background: rgba(107, 70, 193, 0.1);
+  border: 2px solid $mystic-border-primary;
+  color: $mystic-text-primary;
+  padding: 0.75rem 1.25rem;
+  border-radius: $radius-round;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(107, 70, 193, 0.2);
+    border-color: $mystic-border-hover;
+    transform: translateY(-2px);
+  }
+
+  &.selected {
+    background: linear-gradient(135deg, $mystic-purple 0%, $mystic-indigo 100%);
+    border-color: $mystic-purple;
+    color: white;
+    box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+  }
+}
+
+// Zodiac options (grille)
+.zodiac-options {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+.zodiac-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+
+  .zodiac-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .zodiac-name {
+    font-size: 0.85rem;
+  }
+}
+
+// Range slider (stress)
+.stress-slider {
+  padding: 1rem 0;
+}
+
+.onboarding-range {
+  width: 100%;
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(107, 70, 193, 0.2);
+  appearance: none;
+  cursor: pointer;
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border-radius: $radius-circle;
+    background: linear-gradient(135deg, $mystic-purple 0%, $mystic-pink 100%);
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(107, 70, 193, 0.5);
+    transition: $transition-base;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.stress-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  color: $mystic-text-muted;
+  font-size: 0.9rem;
+}
+
+// Completion message
+.completion-message {
+  text-align: center;
+  padding: 2rem;
+  margin-top: 1rem;
+  background: rgba(107, 70, 193, 0.1);
+  border: 1px solid $mystic-border-primary;
+  border-radius: $radius-lg;
+
+  i {
+    font-size: 4rem;
+    color: #22c55e;
+    margin-bottom: 1rem;
+    display: block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  p {
+    color: $mystic-text-primary;
+    font-size: 1.2rem;
+    margin: 0;
+  }
+}
+
+// Navigation
+.onboarding-navigation {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid $mystic-border-primary;
+  background: rgba(10, 10, 15, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.btn-onboarding-prev,
+.btn-onboarding-next,
+.btn-onboarding-submit {
+  padding: 1rem 2rem;
+  border-radius: $radius-round;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: $transition-base;
+  min-width: 160px;
+}
+
+.btn-onboarding-prev {
+  background: rgba(107, 70, 193, 0.2);
+  border: 2px solid $mystic-border-primary;
+  color: $mystic-text-primary;
+
+  &:hover {
+    background: rgba(107, 70, 193, 0.3);
+    border-color: $mystic-border-hover;
+    transform: translateX(-3px);
+  }
+}
+
+.btn-onboarding-next {
+  background: linear-gradient(135deg, $mystic-purple 0%, $mystic-indigo 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 15px rgba(107, 70, 193, 0.4);
+
+  &:hover {
+    transform: translateX(3px);
+    box-shadow: 0 6px 20px rgba(107, 70, 193, 0.6);
+  }
+}
+
+.btn-onboarding-submit {
+  background: linear-gradient(135deg, $mystic-gold 0%, #f59e0b 100%);
+  border: none;
+  color: $mystic-dark;
+  box-shadow: 0 4px 15px rgba(251, 191, 36, 0.4);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+  }
+}
+
+// Animations
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .onboarding-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .onboarding-progress-bar {
+    width: 150px;
+  }
+
+  .step-title {
+    font-size: 1.5rem;
+  }
+
+  .step-icon {
+    width: 80px;
+    height: 80px;
+
+    i {
+      font-size: 2.5rem;
+    }
+  }
+
+  .zodiac-options {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .onboarding-navigation {
+    flex-direction: column;
+
+    .btn-onboarding-prev,
+    .btn-onboarding-next,
+    .btn-onboarding-submit {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .zodiac-options {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

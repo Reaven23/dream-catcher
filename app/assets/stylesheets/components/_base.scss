@@ -1,0 +1,41 @@
+// ========================================
+// Styles de base
+// ========================================
+
+body.mystic-body {
+  background: linear-gradient(135deg, $mystic-dark 0%, #1a1a2e 50%, #16213e 100%);
+  min-height: 100vh;
+  color: $mystic-text-primary;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+      radial-gradient(circle at 20% 50%, rgba(107, 70, 193, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+}
+
+.mystic-main {
+  position: relative;
+  z-index: 1;
+  padding: 2rem 0;
+  min-height: calc(100vh - 200px);
+}
+
+// Footer
+.mystic-footer {
+  background: rgba(10, 10, 15, 0.9);
+  border-top: 1px solid $mystic-border-primary;
+  color: $mystic-text-muted;
+  margin-top: 4rem;
+}

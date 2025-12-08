@@ -1,5 +1,5 @@
 class DreamsController < ApplicationController
-  before_action :set_dream, only: [:show]
+  before_action :set_dream, only: [:show, :destroy]
 
   def index
     @dreams = current_user.dreams.recent.includes(:analysis)
@@ -18,16 +18,27 @@ class DreamsController < ApplicationController
     @dream = current_user.dreams.build(dream_params)
 
     if @dream.save
-      # Générer l'analyse avec l'IA
+      # Générer l'analyse avec l'IA (retourne titre + analyse)
       interpreter = DreamInterpreterService.new(@dream, current_user)
-      interpretation = interpreter.interpret
+      result = interpreter.interpret
 
-      @dream.create_analysis(interpretation: interpretation)
+      # Mettre à jour le titre avec celui généré par l'IA
+      if result[:title].present?
+        @dream.update(title: result[:title])
+      end
 
-      redirect_to @dream, notice: 'Votre rêve a été enregistré et analysé avec succès.'
+      # Créer l'analyse
+      @dream.create_analysis(interpretation: result[:analysis])
+
+      redirect_to @dream, notice: 'Votre rêve a été analysé avec succès.'
     else
       render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @dream.destroy
+    redirect_to dreams_path, notice: 'Le rêve a été supprimé avec succès.'
   end
 
   private
@@ -37,6 +48,6 @@ class DreamsController < ApplicationController
   end
 
   def dream_params
-    params.require(:dream).permit(:title, :content, :date)
+    params.require(:dream).permit(:content, :date)
   end
 end

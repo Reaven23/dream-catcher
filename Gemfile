@@ -53,6 +53,9 @@ gem "devise"
 # HTTP client for AI API calls
 gem "httparty"
 
+# Markdown parser for AI responses
+gem "redcarpet"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]

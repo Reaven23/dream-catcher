@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_12_08_164130) do
+ActiveRecord::Schema[7.1].define(version: 2025_12_08_211604) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,23 @@ ActiveRecord::Schema[7.1].define(version: 2025_12_08_164130) do
     t.integer "age"
     t.string "relationship_status"
     t.string "gender"
+    t.string "pays"
+    t.string "rappel_reves"
+    t.string "reves_lucides"
+    t.string "heure_sommeil"
+    t.integer "stress_niveau"
+    t.string "humeur_generale"
+    t.jsonb "source_stress"
+    t.string "situation_pro"
+    t.jsonb "changements_recents"
+    t.string "symbolisme"
+    t.string "vision_reves"
+    t.text "peurs_principales"
+    t.text "emotions_recurrentes"
+    t.string "ton_prefere"
+    t.string "longueur_analyse"
+    t.string "style_prefere"
+    t.boolean "onboarding_completed", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -8,7 +8,7 @@
     <div class="row">
       <% @dreams.each do |dream| %>
         <div class="col-md-6 col-lg-4 mb-4">
-          <div class="dream-item">
+          <div class="dream-item position-relative">
             <%= link_to dream_path(dream), class: "text-decoration-none" do %>
               <div class="dream-title">
                 <i class="bi bi-moon-stars"></i> <%= dream.title %>
@@ -26,6 +26,9 @@
                   </span>
                 </div>
               <% end %>
+            <% end %>
+            <%= button_to dream_path(dream), method: :delete, class: "btn-delete-item", form_class: "delete-form", data: { action: "click->confirm#open", confirm_title: "Supprimer ce rêve ?", confirm_message: "Cette action supprimera définitivement le rêve <strong>\"#{dream.title}\"</strong> ainsi que son analyse.\n\nCette action est irréversible.", confirm_text: "Supprimer", confirm_type: "danger" } do %>
+              <i class="bi bi-trash"></i>
             <% end %>
           </div>
         </div>

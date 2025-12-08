@@ -1,70 +1,119 @@
-<div class="container">
-  <% if user_signed_in? && current_user.quiz_completed? %>
-    <div class="mystic-hero">
-      <h1><i class="bi bi-moon-stars-fill"></i> Enregistrez votre rêve</h1>
-      <p>Plongez dans les mystères de votre inconscient</p>
+<% if user_signed_in? && current_user.quiz_completed? %>
+  <!-- Hero Section + Modal Custom -->
+  <div data-controller="modal">
+    <div class="mystic-hero-section">
+      <div class="hero-stars"></div>
+      <div class="hero-content">
+        <div class="hero-icon">
+          <i class="bi bi-moon-stars-fill"></i>
+        </div>
+        <h1 class="hero-title">Plongez dans vos rêves</h1>
+        <p class="hero-subtitle">Laissez l'IA révéler les mystères cachés de votre inconscient</p>
+        <button type="button" class="btn btn-mystic-hero btn-lg" data-action="click->modal#open">
+          <i class="bi bi-stars"></i> Enregistrer un rêve
+        </button>
+      </div>
+      <div class="hero-waves">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1200,50 L1200,120 L0,120 Z" fill="rgba(10, 10, 15, 0.3)"></path>
+        </svg>
+      </div>
     </div>
 
-    <div class="row justify-content-center">
-      <div class="col-lg-8">
-        <div class="mystic-card position-relative" data-controller="loading">
-          <h2><i class="bi bi-stars"></i> Nouveau Rêve</h2>
-          <%= form_with model: @dream, url: dreams_path, class: "mystic-form" do |f| %>
-            <div class="mb-3">
-              <%= f.label :title, "Titre du rêve", class: "form-label" %>
-              <%= f.text_field :title, class: "form-control", placeholder: "Donnez un titre à votre rêve..." %>
-            </div>
-
+    <!-- Modal Custom (sans Bootstrap) -->
+    <div class="custom-modal-overlay" data-modal-target="overlay" data-action="click->modal#closeOnOverlay">
+      <div class="custom-modal-dialog" data-modal-target="dialog" data-controller="loading">
+        <div class="custom-modal-header">
+          <h2 class="custom-modal-title">
+            <i class="bi bi-stars"></i> Nouveau Rêve
+          </h2>
+          <button type="button" class="custom-modal-close" data-action="click->modal#close" aria-label="Fermer">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+        <div class="custom-modal-body">
+          <%= form_with model: @dream, url: dreams_path, class: "mystic-form", data: { action: "submit->loading#start" } do |f| %>
             <div class="mb-3">
               <%= f.label :date, "Date du rêve", class: "form-label" %>
-              <%= f.date_field :date, class: "form-control" %>
+              <%= f.date_field :date, class: "form-control", data: { controller: "flatpickr", flatpickr_date_format_value: "d/m/Y", flatpickr_max_date_value: "today" } %>
+              <% if @dream.errors[:date].any? %>
+                <div class="text-danger mt-1"><%= @dream.errors[:date].first %></div>
+              <% end %>
             </div>
 
-            <div class="mb-4">
-              <%= f.label :content, "Décrivez votre rêve en détail", class: "form-label" %>
-              <%= f.text_area :content, class: "form-control", placeholder: "Décrivez votre rêve avec le plus de détails possible. Incluez les lieux, les personnes, les actions, les émotions ressenties, les couleurs, les sons... Plus vous êtes détaillé, plus l'analyse sera précise." %>
+            <div class="mb-4" data-controller="speech">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <%= f.label :content, "Décrivez votre rêve en détail", class: "form-label mb-0" %>
+                <button type="button" class="btn btn-speech btn-sm" data-speech-target="button" data-action="click->speech#toggle">
+                  <i class="bi bi-mic"></i> Dicter
+                </button>
+              </div>
+              <div class="speech-status" data-speech-target="status" style="display: none;"></div>
+              <%= f.text_area :content, class: "form-control", placeholder: "Décrivez votre rêve avec le plus de détails possible...", rows: 8, data: { speech_target: "input" } %>
+              <% if @dream.errors[:content].any? %>
+                <div class="text-danger mt-1"><%= @dream.errors[:content].first %></div>
+              <% end %>
+              <small class="form-text text-muted mt-2">
+                <i class="bi bi-lightbulb"></i> Le titre sera généré automatiquement par l'IA
+              </small>
             </div>
 
-            <div class="text-center">
+            <div class="custom-modal-actions">
+              <button type="button" class="btn btn-mystic-secondary" data-action="click->modal#close">Annuler</button>
               <%= f.submit "Analyser mon rêve", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
             </div>
           <% end %>
+        </div>
 
-          <!-- Overlay de chargement -->
-          <div class="loading-overlay d-none" data-loading-target="overlay">
-            <div class="loading-spinner-container" data-loading-target="spinner">
-              <div class="mystic-spinner">
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-              </div>
-              <p class="loading-text">
-                <i class="bi bi-stars"></i><br>
-                L'IA analyse votre rêve...<br>
-                <small>Plongez dans les mystères de votre inconscient</small>
-              </p>
+        <!-- Overlay de chargement -->
+        <div class="custom-loading-overlay" data-loading-target="overlay" style="display: none;">
+          <div class="loading-spinner-container" data-loading-target="spinner">
+            <div class="mystic-spinner">
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
+              <div class="spinner-ring"></div>
             </div>
+            <p class="loading-text">
+              <i class="bi bi-stars"></i><br>
+              L'IA analyse votre rêve...<br>
+              <small>Plongez dans les mystères de votre inconscient</small>
+            </p>
           </div>
         </div>
       </div>
     </div>
-  <% elsif user_signed_in? %>
-    <div class="mystic-hero">
-      <h1><i class="bi bi-moon-stars-fill"></i> Bienvenue dans DreamWeaver</h1>
-      <p>Complétez d'abord le quiz initial pour commencer votre voyage onirique</p>
-      <%= link_to "Commencer le quiz", new_quiz_path, class: "btn btn-mystic btn-lg" %>
-    </div>
-  <% else %>
-    <div class="mystic-hero">
-      <h1><i class="bi bi-moon-stars-fill"></i> DreamWeaver</h1>
-      <p class="lead">Découvrez les mystères cachés dans vos rêves grâce à l'intelligence artificielle</p>
-      <div class="mt-4">
-        <%= link_to "Inscription", new_user_registration_path, class: "btn btn-mystic btn-lg me-3" %>
-        <%= link_to "Connexion", new_user_session_path, class: "btn btn-mystic-secondary btn-lg" %>
+  </div>
+
+<% elsif user_signed_in? %>
+  <div class="mystic-hero">
+    <h1><i class="bi bi-moon-stars-fill"></i> Bienvenue dans DreamCatcher</h1>
+    <p>Complétez d'abord le quiz initial pour commencer votre voyage onirique</p>
+    <%= link_to "Commencer le quiz", new_quiz_path, class: "btn btn-mystic btn-lg" %>
+  </div>
+<% else %>
+  <!-- Hero Section pour visiteurs non connectés -->
+  <div class="mystic-hero-section">
+    <div class="hero-stars"></div>
+    <div class="hero-content">
+      <div class="hero-icon">
+        <i class="bi bi-moon-stars-fill"></i>
+      </div>
+      <h1 class="hero-title">DreamCatcher</h1>
+      <p class="hero-subtitle">Découvrez les mystères cachés dans vos rêves grâce à l'intelligence artificielle</p>
+      <div class="hero-buttons">
+        <%= link_to "Inscription", new_user_registration_path, class: "btn btn-mystic-hero btn-lg me-3" %>
+        <%= link_to "Connexion", new_user_session_path, class: "btn btn-mystic-hero-secondary btn-lg" %>
       </div>
     </div>
+    <div class="hero-waves">
+      <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M0,0 C150,100 350,0 500,50 C650,100 850,0 1000,50 L1200,50 L1200,120 L0,120 Z" fill="rgba(10, 10, 15, 0.3)"></path>
+      </svg>
+    </div>
+  </div>
 
-    <div class="row mt-5">
+  <div class="container mt-5">
+    <div class="row">
       <div class="col-md-4 mb-4">
         <div class="mystic-card text-center">
           <i class="bi bi-stars" style="font-size: 3rem; color: #fbbf24; margin-bottom: 1rem;"></i>
@@ -87,5 +136,5 @@
         </div>
       </div>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

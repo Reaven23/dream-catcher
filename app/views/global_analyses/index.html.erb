@@ -13,14 +13,14 @@
             Analysez l'ensemble de vos <strong><%= @dreams.count %></strong> rêve(s) enregistré(s) pour découvrir les thèmes récurrents et les messages de votre inconscient.
           </p>
 
-          <%= form_with url: global_analyses_path, method: :post, class: "mystic-form" do |f| %>
+          <%= form_with url: global_analyses_path, method: :post, class: "mystic-form", data: { action: "submit->loading#start" } do |f| %>
             <div class="text-center">
               <%= f.submit "Générer l'analyse globale", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
             </div>
           <% end %>
 
           <!-- Overlay de chargement -->
-          <div class="loading-overlay d-none" data-loading-target="overlay">
+          <div class="loading-overlay" data-loading-target="overlay" style="display: none;">
             <div class="loading-spinner-container" data-loading-target="spinner">
               <div class="mystic-spinner">
                 <div class="spinner-ring"></div>
@@ -53,7 +53,7 @@
           </h2>
 
           <% @global_analyses.each do |analysis| %>
-            <div class="dream-item">
+            <div class="dream-item position-relative">
               <%= link_to global_analysis_path(analysis), class: "text-decoration-none" do %>
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
@@ -71,6 +71,9 @@
                     <i class="bi bi-arrow-right" style="color: #6b46c1; font-size: 1.5rem;"></i>
                   </div>
                 </div>
+              <% end %>
+              <%= button_to global_analysis_path(analysis), method: :delete, class: "btn-delete-item", form_class: "delete-form", data: { action: "click->confirm#open", confirm_title: "Supprimer cette analyse ?", confirm_message: "Cette action supprimera définitivement cette analyse globale du <strong>#{analysis.created_at.strftime('%d/%m/%Y')}</strong>.\n\nCette action est irréversible.", confirm_text: "Supprimer", confirm_type: "danger" } do %>
+                <i class="bi bi-trash"></i>
               <% end %>
             </div>
           <% end %>

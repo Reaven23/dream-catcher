@@ -1,0 +1,43 @@
+// ========================================
+// Variables mystiques DreamCatcher
+// ========================================
+
+// Couleurs principales
+$mystic-dark: #0a0a0f;
+$mystic-purple: #6b46c1;
+$mystic-indigo: #4c1d95;
+$mystic-pink: #ec4899;
+$mystic-blue: #3b82f6;
+$mystic-gold: #fbbf24;
+
+// Couleurs de fond
+$mystic-bg-primary: rgba(26, 26, 46, 0.8);
+$mystic-bg-secondary: rgba(10, 10, 15, 0.6);
+$mystic-bg-overlay: rgba(10, 10, 15, 0.9);
+
+// Couleurs de texte
+$mystic-text-primary: #e0e0e0;
+$mystic-text-muted: rgba(224, 224, 224, 0.6);
+$mystic-text-light: rgba(224, 224, 224, 0.8);
+
+// Bordures
+$mystic-border-primary: rgba(107, 70, 193, 0.3);
+$mystic-border-hover: rgba(107, 70, 193, 0.5);
+$mystic-border-active: rgba(107, 70, 193, 0.6);
+
+// Ombres
+$mystic-shadow-sm: 0 4px 15px rgba(107, 70, 193, 0.4);
+$mystic-shadow-md: 0 8px 32px rgba(0, 0, 0, 0.3);
+$mystic-shadow-lg: 0 12px 40px rgba(107, 70, 193, 0.3);
+$mystic-shadow-glow: 0 0 20px rgba(107, 70, 193, 0.3);
+
+// Transitions
+$transition-base: all 0.3s ease;
+
+// Border radius
+$radius-sm: 8px;
+$radius-md: 10px;
+$radius-lg: 15px;
+$radius-xl: 20px;
+$radius-round: 25px;
+$radius-circle: 50%;

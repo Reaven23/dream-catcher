@@ -1,0 +1,108 @@
+// ========================================
+// Dashboard utilisateur
+// ========================================
+
+// Zone dangereuse
+.danger-zone {
+  border-color: rgba(236, 72, 153, 0.3) !important;
+
+  h2 {
+    color: $mystic-pink !important;
+    text-shadow: 0 0 10px rgba(236, 72, 153, 0.3) !important;
+  }
+
+  &:hover {
+    border-color: rgba(236, 72, 153, 0.5) !important;
+  }
+}
+
+// Bouton de suppression
+.btn-danger {
+  background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: $radius-round;
+  font-weight: 600;
+  transition: $transition-base;
+
+  &:hover {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+    color: white;
+  }
+}
+
+// Bouton de suppression inline (sur les items)
+.btn-delete-item {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(220, 38, 38, 0.2);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #ef4444;
+  width: 32px;
+  height: 32px;
+  border-radius: $radius-circle;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: $transition-base;
+  opacity: 0;
+  z-index: 10;
+
+  &:hover {
+    background: rgba(220, 38, 38, 0.4);
+    border-color: rgba(220, 38, 38, 0.6);
+    color: white;
+    transform: scale(1.1);
+  }
+
+  i {
+    font-size: 0.9rem;
+  }
+}
+
+// Afficher le bouton de suppression au survol de l'item
+.dream-item:hover .btn-delete-item {
+  opacity: 1;
+}
+
+// Form de suppression inline
+.delete-form {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+}
+
+// Dropdown menu mystique
+.mystic-dropdown {
+  background: rgba(26, 26, 46, 0.98);
+  border: 1px solid $mystic-border-primary;
+  border-radius: $radius-md;
+  backdrop-filter: blur(20px);
+  box-shadow: $mystic-shadow-md;
+
+  .dropdown-item {
+    color: $mystic-text-primary;
+    padding: 0.75rem 1.5rem;
+    transition: $transition-base;
+
+    &:hover,
+    &:focus {
+      background: rgba(107, 70, 193, 0.2);
+      color: $mystic-gold;
+    }
+
+    i {
+      margin-right: 0.5rem;
+    }
+  }
+
+  .dropdown-divider {
+    border-color: $mystic-border-primary;
+  }
+}

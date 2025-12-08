@@ -1,81 +1,313 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-lg-8">
-      <div class="mystic-hero">
-        <h1><i class="bi bi-clipboard-check"></i> Quiz Initial</h1>
-        <p>Ces informations nous aideront à personnaliser l'interprétation de vos rêves</p>
+<div class="onboarding-container" data-controller="onboarding">
+  <!-- Header avec progression -->
+  <div class="onboarding-header">
+    <div class="onboarding-logo">
+      <i class="bi bi-moon-stars-fill"></i>
+      <span>DreamCatcher</span>
+    </div>
+    <div class="onboarding-progress-container">
+      <div class="onboarding-progress-bar">
+        <div class="onboarding-progress-fill" data-onboarding-target="progress"></div>
       </div>
-
-      <div class="mystic-card">
-        <%= form_with model: @user, url: quiz_path, method: :post, class: "mystic-form" do |f| %>
-          <% if @user.errors.any? %>
-            <div class="alert alert-danger mystic-alert mb-4">
-              <h4 class="alert-heading">
-                <i class="bi bi-exclamation-triangle"></i> <%= pluralize(@user.errors.count, "erreur") %> détectée(s) :
-              </h4>
-              <ul class="mb-0">
-                <% @user.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <%= f.label :first_name, "Prénom", class: "form-label" %>
-              <%= f.text_field :first_name, class: "form-control", placeholder: "Votre prénom" %>
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <%= f.label :gender, "Genre", class: "form-label" %>
-              <%= f.select :gender, [["Homme", "Homme"], ["Femme", "Femme"], ["Autre", "Autre"], ["Préfère ne pas dire", "Préfère ne pas dire"]], { prompt: "Sélectionnez..." }, { class: "form-select" } %>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-6 mb-3">
-              <%= f.label :age, "Âge", class: "form-label" %>
-              <%= f.number_field :age, class: "form-control", min: 1, max: 120, placeholder: "Votre âge" %>
-            </div>
-
-            <div class="col-md-6 mb-3">
-              <%= f.label :zodiac_sign, "Signe astrologique", class: "form-label" %>
-              <%= f.select :zodiac_sign, [
-                ["Bélier", "Bélier"],
-                ["Taureau", "Taureau"],
-                ["Gémeaux", "Gémeaux"],
-                ["Cancer", "Cancer"],
-                ["Lion", "Lion"],
-                ["Vierge", "Vierge"],
-                ["Balance", "Balance"],
-                ["Scorpion", "Scorpion"],
-                ["Sagittaire", "Sagittaire"],
-                ["Capricorne", "Capricorne"],
-                ["Verseau", "Verseau"],
-                ["Poissons", "Poissons"]
-              ], { prompt: "Sélectionnez votre signe..." }, { class: "form-select" } %>
-            </div>
-          </div>
-
-          <div class="mb-4">
-            <%= f.label :relationship_status, "Situation amoureuse", class: "form-label" %>
-            <%= f.select :relationship_status, [
-              ["Célibataire", "Célibataire"],
-              ["En couple", "En couple"],
-              ["Marié(e)", "Marié(e)"],
-              ["Divorcé(e)", "Divorcé(e)"],
-              ["Veuf/Veuve", "Veuf/Veuve"],
-              ["Compliqué", "Compliqué"],
-              ["Préfère ne pas dire", "Préfère ne pas dire"]
-            ], { prompt: "Sélectionnez..." }, { class: "form-select" } %>
-          </div>
-
-          <div class="text-center">
-            <%= f.submit "Valider et continuer", class: "btn btn-mystic btn-lg" %>
-          </div>
-        <% end %>
-      </div>
+      <span class="onboarding-progress-text" data-onboarding-target="progressText">Étape 1 sur 6</span>
     </div>
   </div>
+
+  <%= form_with model: @user, url: quiz_path, method: :post, class: "onboarding-form", data: { turbo: false } do |f| %>
+
+    <!-- ÉTAPE 1: Informations personnelles -->
+    <div class="onboarding-step active" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-person-heart"></i>
+      </div>
+      <h2 class="step-title">Faisons connaissance</h2>
+      <p class="step-subtitle">Quelques informations pour personnaliser votre expérience</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre prénom ?</label>
+          <%= f.text_field :first_name, class: "onboarding-input", placeholder: "Votre prénom...", required: true %>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre âge ?</label>
+          <%= f.number_field :age, class: "onboarding-input", placeholder: "Votre âge...", min: 1, max: 120, required: true %>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre genre ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :gender %>
+            <% User::GENRES.each do |genre| %>
+              <button type="button" class="option-btn" data-value="<%= genre %>" data-action="click->onboarding#selectOption">
+                <%= genre %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Dans quel pays vivez-vous ?</label>
+          <%= f.text_field :pays, class: "onboarding-input", placeholder: "France, Belgique, Suisse..." %>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre signe astrologique ?</label>
+          <div class="options-container zodiac-options" data-multiple="false">
+            <%= f.hidden_field :zodiac_sign %>
+            <% User::SIGNES_ASTRO.each_with_index do |signe, i| %>
+              <% icons = ["♈", "♉", "♊", "♋", "♌", "♍", "♎", "♏", "♐", "♑", "♒", "♓"] %>
+              <button type="button" class="option-btn zodiac-btn" data-value="<%= signe %>" data-action="click->onboarding#selectOption">
+                <span class="zodiac-icon"><%= icons[i] %></span>
+                <span class="zodiac-name"><%= signe %></span>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 2: Sommeil et rêves -->
+    <div class="onboarding-step d-none" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-cloud-moon"></i>
+      </div>
+      <h2 class="step-title">Vos habitudes de sommeil</h2>
+      <p class="step-subtitle">Parlez-nous de votre rapport aux rêves</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">À quelle fréquence vous souvenez-vous de vos rêves ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :rappel_reves %>
+            <% User::RAPPEL_REVES.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Avez-vous des rêves lucides ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :reves_lucides %>
+            <% User::REVES_LUCIDES.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">À quelle heure vous couchez-vous en moyenne ?</label>
+          <%= f.text_field :heure_sommeil, class: "onboarding-input", placeholder: "Ex: 23h00, minuit..." %>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 3: Contexte émotionnel -->
+    <div class="onboarding-step d-none" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-heart-pulse"></i>
+      </div>
+      <h2 class="step-title">Votre état émotionnel</h2>
+      <p class="step-subtitle">Ces informations nous aident à contextualiser vos rêves</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre niveau de stress actuel ? (1 à 10)</label>
+          <div class="stress-slider">
+            <%= f.range_field :stress_niveau, min: 1, max: 10, value: 5, class: "onboarding-range", data: { action: "input->onboarding#updateRangeValue" } %>
+            <div class="stress-labels">
+              <span>😌 Zen</span>
+              <span>😰 Stressé</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Comment décririez-vous votre humeur générale ces dernières semaines ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :humeur_generale %>
+            <% User::HUMEUR_OPTIONS.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quelles sont vos principales sources de stress actuelles ?</label>
+          <p class="form-hint">Vous pouvez en sélectionner plusieurs</p>
+          <div class="options-container" data-multiple="true">
+            <%= f.hidden_field :source_stress, value: "[]" %>
+            <% User::SOURCES_STRESS.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 4: Contexte de vie -->
+    <div class="onboarding-step d-none" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-house-heart"></i>
+      </div>
+      <h2 class="step-title">Votre contexte de vie</h2>
+      <p class="step-subtitle">Votre situation actuelle influence vos rêves</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">Quelle est votre situation professionnelle ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :situation_pro %>
+            <% User::SITUATIONS_PRO.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quelle est votre situation affective ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :relationship_status %>
+            <% User::SITUATIONS_AFFECTIVES.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Avez-vous vécu des changements importants récemment ?</label>
+          <p class="form-hint">Vous pouvez en sélectionner plusieurs</p>
+          <div class="options-container" data-multiple="true">
+            <%= f.hidden_field :changements_recents, value: "[]" %>
+            <% User::CHANGEMENTS_OPTIONS.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 5: Rapport aux rêves et symbolisme -->
+    <div class="onboarding-step d-none" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-stars"></i>
+      </div>
+      <h2 class="step-title">Votre vision des rêves</h2>
+      <p class="step-subtitle">Votre rapport au symbolisme et à l'inconscient</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">Quel est votre rapport au symbolisme ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :symbolisme %>
+            <% User::SYMBOLISME_OPTIONS.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Comment voyez-vous vos rêves ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :vision_reves %>
+            <% User::VISION_REVES_OPTIONS.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quelles sont vos principales peurs ?</label>
+          <%= f.text_area :peurs_principales, class: "onboarding-textarea", placeholder: "Décrivez librement vos peurs principales...", rows: 3 %>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quelles émotions reviennent le plus souvent dans vos rêves ?</label>
+          <%= f.text_area :emotions_recurrentes, class: "onboarding-textarea", placeholder: "Ex: peur, joie, confusion, nostalgie...", rows: 3 %>
+        </div>
+      </div>
+    </div>
+
+    <!-- ÉTAPE 6: Préférences d'analyse -->
+    <div class="onboarding-step d-none" data-onboarding-target="step">
+      <div class="step-icon">
+        <i class="bi bi-sliders"></i>
+      </div>
+      <h2 class="step-title">Vos préférences</h2>
+      <p class="step-subtitle">Personnalisez le style de vos analyses</p>
+
+      <div class="step-content">
+        <div class="form-group">
+          <label class="onboarding-label">Quel ton préférez-vous pour les analyses ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :ton_prefere %>
+            <% User::TONS_PREFERES.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quelle longueur d'analyse préférez-vous ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :longueur_analyse %>
+            <% User::LONGUEURS_ANALYSE.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="onboarding-label">Quel style d'analyse préférez-vous ?</label>
+          <div class="options-container" data-multiple="false">
+            <%= f.hidden_field :style_prefere %>
+            <% User::STYLES_ANALYSE.each do |option| %>
+              <button type="button" class="option-btn" data-value="<%= option %>" data-action="click->onboarding#selectOption">
+                <%= option %>
+              </button>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="completion-message">
+          <i class="bi bi-check-circle"></i>
+          <p>Parfait ! Vous êtes prêt·e à explorer vos rêves.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="onboarding-navigation">
+      <button type="button" class="btn btn-onboarding-prev d-none" data-onboarding-target="prevBtn" data-action="click->onboarding#prev">
+        <i class="bi bi-arrow-left"></i> Précédent
+      </button>
+      <button type="button" class="btn btn-onboarding-next" data-onboarding-target="nextBtn" data-action="click->onboarding#next">
+        Suivant <i class="bi bi-arrow-right"></i>
+      </button>
+      <%= f.submit "Commencer l'aventure", class: "btn btn-onboarding-submit d-none", data: { onboarding_target: "submitBtn" } %>
+    </div>
+  <% end %>
 </div>

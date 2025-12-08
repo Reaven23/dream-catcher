@@ -1,0 +1,57 @@
+// ========================================
+// Responsive
+// ========================================
+
+@media (max-width: 768px) {
+  .mystic-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .hero-icon {
+    font-size: 4rem;
+  }
+
+  .mystic-card {
+    padding: 1.5rem;
+  }
+
+  .mystic-spinner {
+    width: 80px;
+    height: 80px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+
+  .btn-mystic-hero,
+  .btn-mystic-hero-secondary {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+  }
+
+  .custom-modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  .custom-modal-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .custom-modal-body {
+    padding: 1.5rem;
+  }
+
+  .custom-modal-title {
+    font-size: 1.5rem;
+  }
+}

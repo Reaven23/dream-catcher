@@ -1,0 +1,179 @@
+// ========================================
+// Boutons mystiques
+// ========================================
+
+.btn-mystic {
+  background: linear-gradient(135deg, $mystic-purple 0%, $mystic-indigo 100%);
+  border: none;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: $radius-round;
+  font-weight: 600;
+  transition: $transition-base;
+  box-shadow: $mystic-shadow-sm;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 70, 193, 0.6);
+    background: linear-gradient(135deg, lighten($mystic-purple, 5%) 0%, lighten($mystic-indigo, 5%) 100%);
+    color: white;
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-mystic-secondary {
+  background: rgba(107, 70, 193, 0.2);
+  border: 1px solid $mystic-border-hover;
+  color: $mystic-gold;
+  padding: 0.75rem 2rem;
+  border-radius: $radius-round;
+  font-weight: 600;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(107, 70, 193, 0.4);
+    border-color: $mystic-purple;
+    color: $mystic-gold;
+  }
+}
+
+// Boutons Hero
+.btn-mystic-hero {
+  background: linear-gradient(135deg, $mystic-purple 0%, $mystic-indigo 100%);
+  border: 2px solid $mystic-border-hover;
+  color: white;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: $transition-base;
+  box-shadow:
+    0 4px 20px rgba(107, 70, 193, 0.4),
+    0 0 30px rgba(107, 70, 193, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: $radius-circle;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      0 6px 30px rgba(107, 70, 193, 0.6),
+      0 0 40px rgba(107, 70, 193, 0.4);
+    border-color: rgba(107, 70, 193, 0.8);
+
+    &::before {
+      width: 300px;
+      height: 300px;
+    }
+  }
+
+  i {
+    margin-right: 0.5rem;
+  }
+}
+
+.btn-mystic-hero-secondary {
+  background: rgba(107, 70, 193, 0.2);
+  border: 2px solid $mystic-border-hover;
+  color: $mystic-gold;
+  padding: 1rem 3rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  transition: $transition-base;
+
+  &:hover {
+    background: rgba(107, 70, 193, 0.4);
+    border-color: $mystic-purple;
+    color: $mystic-gold;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(107, 70, 193, 0.4);
+  }
+}
+
+// Bouton de dictée vocale
+.btn-speech {
+  background: rgba(236, 72, 153, 0.2);
+  border: 1px solid rgba(236, 72, 153, 0.4);
+  color: #ec4899;
+  padding: 0.5rem 1rem;
+  border-radius: $radius-round;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: $transition-base;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  i {
+    font-size: 1rem;
+  }
+
+  &:hover {
+    background: rgba(236, 72, 153, 0.3);
+    border-color: rgba(236, 72, 153, 0.6);
+    color: #ec4899;
+    transform: translateY(-1px);
+  }
+
+  &.listening {
+    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
+    border-color: #ec4899;
+    color: white;
+    animation: pulse-mic 1.5s infinite;
+
+    i {
+      animation: mic-glow 1s infinite;
+    }
+  }
+
+  &.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes pulse-mic {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+  }
+}
+
+@keyframes mic-glow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+// Status de la dictée
+.speech-status {
+  background: rgba(236, 72, 153, 0.1);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  border-radius: $radius-sm;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  color: #f472b6;
+  font-size: 0.9rem;
+  animation: fadeIn 0.3s ease;
+}

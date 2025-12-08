@@ -1,0 +1,51 @@
+// ========================================
+// Formulaires
+// ========================================
+
+.mystic-form {
+  .form-label {
+    color: $mystic-gold;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control, .form-select {
+    background: $mystic-bg-secondary;
+    border: 1px solid $mystic-border-primary;
+    color: $mystic-text-primary;
+    border-radius: $radius-sm;
+    padding: 0.75rem;
+
+    &:focus {
+      background: rgba(10, 10, 15, 0.8);
+      border-color: $mystic-purple;
+      color: $mystic-text-primary;
+      box-shadow: 0 0 15px rgba(107, 70, 193, 0.3);
+    }
+
+    &::placeholder {
+      color: rgba(224, 224, 224, 0.5);
+    }
+  }
+
+  textarea.form-control {
+    min-height: 200px;
+    resize: vertical;
+  }
+}
+
+// Form check
+.form-check-input {
+  background-color: $mystic-bg-secondary;
+  border-color: $mystic-border-primary;
+
+  &:checked {
+    background-color: $mystic-purple;
+    border-color: $mystic-purple;
+  }
+}
+
+.form-check-label {
+  color: $mystic-text-primary;
+  margin-left: 0.5rem;
+}

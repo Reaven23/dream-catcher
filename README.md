@@ -1,4 +1,4 @@
-# DreamWeaver - Interprétation Mystique des Rêves
+# DreamCatcher - Interprétation Mystique des Rêves
 
 Une application Rails moderne pour l'interprétation des rêves avec intelligence artificielle.
 

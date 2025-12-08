@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>DreamWeaver - Interprétation Mystique des Rêves</title>
+    <title>DreamCatcher - Interprétation Mystique des Rêves</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -10,11 +10,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mystic-body">
+  <body class="mystic-body" data-controller="confirm">
     <nav class="navbar navbar-expand-lg navbar-dark mystic-nav">
       <div class="container">
         <%= link_to root_path, class: "navbar-brand mystic-brand" do %>
-          <i class="bi bi-moon-stars-fill"></i> DreamWeaver
+          <i class="bi bi-moon-stars-fill"></i> DreamCatcher
         <% end %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
@@ -31,8 +31,15 @@
               <li class="nav-item">
                 <%= link_to "Analyse Globale", global_analyses_path, class: "nav-link" %>
               </li>
-              <li class="nav-item">
-                <%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "nav-link" %>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-person-circle"></i> <%= current_user.first_name.presence || current_user.email.split('@').first %>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end mystic-dropdown">
+                  <li><%= link_to "Mon Profil", dashboard_path, class: "dropdown-item" %></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><%= link_to "Déconnexion", destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
+                </ul>
               </li>
             <% else %>
               <li class="nav-item">
@@ -65,9 +72,12 @@
       <%= yield %>
     </main>
 
+    <!-- Modale de confirmation -->
+    <%= render 'shared/confirm_modal' %>
+
     <footer class="mystic-footer text-center py-4">
       <div class="container">
-        <p class="mb-0">&copy; 2024 DreamWeaver - Plongez dans les mystères de vos rêves</p>
+        <p class="mb-0">&copy; 2024 DreamCatcher - Plongez dans les mystères de vos rêves</p>
       </div>
     </footer>
   </body>
