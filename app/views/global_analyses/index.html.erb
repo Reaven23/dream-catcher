@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="loading">
   <div class="mystic-hero">
     <h1><i class="bi bi-graph-up-arrow"></i> Analyses Globales</h1>
     <p>Synthèse de tous vos rêves pour identifier les patterns récurrents</p>
@@ -7,7 +7,7 @@
   <div class="row justify-content-center">
     <div class="col-lg-10">
       <% if @can_generate %>
-        <div class="mystic-card position-relative" data-controller="loading">
+        <div class="mystic-card">
           <h2><i class="bi bi-stars"></i> Générer une nouvelle analyse globale</h2>
           <p class="mb-4">
             Analysez l'ensemble de vos <strong><%= @dreams.count %></strong> rêve(s) enregistré(s) pour découvrir les thèmes récurrents et les messages de votre inconscient.
@@ -18,22 +18,6 @@
               <%= f.submit "Générer l'analyse globale", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
             </div>
           <% end %>
-
-          <!-- Overlay de chargement -->
-          <div class="loading-overlay" data-loading-target="overlay" style="display: none;">
-            <div class="loading-spinner-container" data-loading-target="spinner">
-              <div class="mystic-spinner">
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-              </div>
-              <p class="loading-text">
-                <i class="bi bi-stars"></i><br>
-                L'IA analyse tous vos rêves...<br>
-                <small>Découvrez les patterns de votre inconscient</small>
-              </p>
-            </div>
-          </div>
         </div>
       <% else %>
         <div class="mystic-card">
@@ -85,6 +69,28 @@
           <p>Générez votre première analyse globale pour découvrir les patterns dans vos rêves.</p>
         </div>
       <% end %>
+    </div>
+  </div>
+
+  <!-- Loader Fullscreen pour analyse globale -->
+  <div class="loading-fullscreen" data-loading-target="overlay" style="display: none;">
+    <div class="loading-fullscreen-content">
+      <div class="mystic-spinner-large">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-moon">🌙</div>
+      </div>
+      <h2 class="loading-title">Analyse en cours...</h2>
+      <p class="loading-text">
+        L'IA analyse l'ensemble de vos rêves<br>
+        <small>Découverte des patterns et thèmes récurrents</small>
+      </p>
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
 </div>
