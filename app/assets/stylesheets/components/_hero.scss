@@ -25,7 +25,7 @@
 // Hero Section Stylée
 .mystic-hero-section {
   position: relative;
-  min-height: 90vh;
+  height: 78vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -91,20 +91,20 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   max-width: 800px;
   margin: 0 auto;
 }
 
 .hero-icon {
-  font-size: 6rem;
+  font-size: 4rem;
   color: $mystic-gold;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   animation: float 4s ease-in-out infinite;
   text-shadow:
-    0 0 20px rgba(251, 191, 36, 0.5),
-    0 0 40px rgba(251, 191, 36, 0.3),
-    0 0 60px rgba(107, 70, 193, 0.2);
+    0 0 20px rgba(230, 200, 104, 0.5),
+    0 0 40px rgba(230, 200, 104, 0.3),
+    0 0 60px rgba(27, 77, 62, 0.2);
 
   i {
     display: block;
@@ -112,22 +112,23 @@
 }
 
 .hero-title {
-  font-size: 4.5rem;
-  font-weight: bold;
+  font-family: 'Cinzel', Georgia, serif;
+  font-size: 3.5rem;
+  font-weight: 600;
   color: $mystic-gold;
   text-shadow:
-    0 0 20px rgba(251, 191, 36, 0.6),
-    0 0 40px rgba(251, 191, 36, 0.4),
-    0 0 60px rgba(107, 70, 193, 0.3);
-  margin-bottom: 1.5rem;
+    0 0 20px rgba(230, 200, 104, 0.6),
+    0 0 40px rgba(230, 200, 104, 0.4);
+  margin-bottom: 1rem;
   line-height: 1.2;
   animation: fadeInUp 1s ease-out;
 }
 
 .hero-subtitle {
-  font-size: 1.5rem;
-  color: rgba(224, 224, 224, 0.9);
-  margin-bottom: 3rem;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.3rem;
+  color: $mystic-text-light;
+  margin-bottom: 2rem;
   line-height: 1.6;
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
   animation: fadeInUp 1s ease-out 0.2s both;
@@ -142,7 +143,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 120px;
+  height: 60px;
   overflow: hidden;
   z-index: 1;
 
@@ -151,5 +152,111 @@
     height: 100%;
     fill: rgba(10, 10, 15, 0.5);
     animation: wave 10s ease-in-out infinite;
+  }
+}
+
+// ========================================
+// Responsive Hero - Tablette
+// ========================================
+@media (max-width: 991.98px) {
+  .mystic-hero-section {
+    height: auto;
+    min-height: calc(100vh - 120px); // Navbar (~60px) + Footer (~60px)
+    padding: 2rem 1rem;
+  }
+
+  .hero-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero-icon {
+    font-size: 3rem;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    padding: 0 1rem;
+  }
+
+  .hero-waves {
+    height: 30px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    .btn {
+      margin: 0 !important;
+    }
+  }
+}
+
+// ========================================
+// Responsive Hero - Mobile
+// ========================================
+@media (max-width: 575.98px) {
+  .mystic-hero-section {
+    min-height: calc(100vh - 100px); // Navbar (~50px) + Footer (~50px)
+    padding: 1.5rem 0.75rem;
+  }
+
+  .hero-content {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .hero-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    // Réduire l'animation sur mobile
+    animation: float 4s ease-in-out infinite;
+    animation-duration: 6s;
+  }
+
+  .hero-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+  }
+
+  .hero-waves {
+    display: none; // Masquer les vagues sur mobile pour gagner de la place
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+
+    .btn {
+      width: 100%;
+      max-width: 260px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  // Hero simple (quiz non complété)
+  .mystic-hero {
+    padding: 1.5rem 1rem;
+
+    h1 {
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 0.95rem;
+    }
   }
 }

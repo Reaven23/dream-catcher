@@ -1,3 +1,5 @@
+<% content_for :main_class, "home-main" %>
+
 <% if user_signed_in? && current_user.quiz_completed? %>
   <!-- Hero Section + Modal Custom -->
   <div data-controller="modal">

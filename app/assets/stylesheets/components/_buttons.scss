@@ -177,3 +177,22 @@
   font-size: 0.9rem;
   animation: fadeIn 0.3s ease;
 }
+
+// ========================================
+// Responsive Buttons
+// ========================================
+@media (max-width: 991.98px) {
+  .btn-mystic-hero,
+  .btn-mystic-hero-secondary {
+    padding: 0.9rem 2.5rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .btn-mystic-hero,
+  .btn-mystic-hero-secondary {
+    padding: 0.85rem 2rem;
+    font-size: 1rem;
+  }
+}

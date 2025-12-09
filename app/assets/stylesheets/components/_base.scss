@@ -6,8 +6,10 @@ body.mystic-body {
   background: linear-gradient(135deg, #0B0E0D 0%, #12241E 50%, #0B0E0D 100%);
   min-height: 100vh;
   color: $mystic-text-primary;
-  font-family: 'Georgia', 'Times New Roman', serif;
+  font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   position: relative;
+  display: flex;
+  flex-direction: column;
 
   &::before {
     content: '';
@@ -18,7 +20,7 @@ body.mystic-body {
     height: 100%;
     background-image:
       radial-gradient(circle at 20% 50%, rgba(27, 77, 62, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(212, 197, 163, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(230, 200, 104, 0.04) 0%, transparent 50%),
       radial-gradient(circle at 40% 20%, rgba(46, 125, 102, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
@@ -29,7 +31,15 @@ body.mystic-body {
   position: relative;
   z-index: 1;
   padding: 2rem 0;
-  min-height: calc(100vh - 200px);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+
+  // Pour la homepage, le hero prend tout l'espace
+  &.home-main {
+    padding: 0;
+    justify-content: flex-start;
+  }
 }
 
 // Footer
@@ -37,5 +47,57 @@ body.mystic-body {
   background: rgba(11, 14, 13, 0.98);
   border-top: 1px solid $mystic-border-primary;
   color: $mystic-text-muted;
-  margin-top: 4rem;
+  height: 10vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+
+  p {
+    margin: 0;
+    opacity: 0.8;
+  }
+}
+
+// ========================================
+// Responsive Base
+// ========================================
+@media (max-width: 991.98px) {
+  .mystic-main {
+    padding: 1.5rem 0;
+
+    &.home-main {
+      padding: 0;
+    }
+  }
+
+  .mystic-footer {
+    height: auto;
+    padding: 0.75rem 0;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .mystic-main {
+    padding: 1rem 0;
+
+    &.home-main {
+      padding: 0;
+    }
+  }
+
+  .mystic-footer {
+    padding: 0.5rem 0;
+    font-size: 0.75rem;
+
+    p {
+      padding: 0 0.75rem;
+      text-align: center;
+      line-height: 1.3;
+    }
+  }
 }
