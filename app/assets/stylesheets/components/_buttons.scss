@@ -108,9 +108,9 @@
 
 // Bouton de dictée vocale
 .btn-speech {
-  background: rgba(236, 72, 153, 0.2);
-  border: 1px solid rgba(236, 72, 153, 0.4);
-  color: #ec4899;
+  background: rgba(46, 125, 102, 0.2);
+  border: 1px solid rgba(46, 125, 102, 0.4);
+  color: #2E7D66;
   padding: 0.5rem 1rem;
   border-radius: $radius-round;
   font-weight: 500;
@@ -125,15 +125,15 @@
   }
 
   &:hover {
-    background: rgba(236, 72, 153, 0.3);
-    border-color: rgba(236, 72, 153, 0.6);
-    color: #ec4899;
+    background: rgba(46, 125, 102, 0.3);
+    border-color: rgba(46, 125, 102, 0.6);
+    color: #2E7D66;
     transform: translateY(-1px);
   }
 
   &.listening {
-    background: linear-gradient(135deg, #ec4899 0%, #f472b6 100%);
-    border-color: #ec4899;
+    background: linear-gradient(135deg, #2E7D66 0%, #1B4D3E 100%);
+    border-color: #2E7D66;
     color: white;
     animation: pulse-mic 1.5s infinite;
 
@@ -150,10 +150,10 @@
 
 @keyframes pulse-mic {
   0%, 100% {
-    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+    box-shadow: 0 0 0 0 rgba(46, 125, 102, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+    box-shadow: 0 0 0 10px rgba(46, 125, 102, 0);
   }
 }
 
@@ -168,12 +168,12 @@
 
 // Status de la dictée
 .speech-status {
-  background: rgba(236, 72, 153, 0.1);
-  border: 1px solid rgba(236, 72, 153, 0.3);
+  background: rgba(46, 125, 102, 0.1);
+  border: 1px solid rgba(46, 125, 102, 0.3);
   border-radius: $radius-sm;
   padding: 0.5rem 1rem;
   margin-bottom: 0.5rem;
-  color: #f472b6;
+  color: #1B4D3E;
   font-size: 0.9rem;
   animation: fadeIn 0.3s ease;
 }
