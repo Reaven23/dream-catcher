@@ -179,6 +179,66 @@
 }
 
 // ========================================
+// Boutons sélection nombre de rêves
+// ========================================
+.dreams-count-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.btn-dreams-count {
+  background: linear-gradient(135deg, rgba(27, 77, 62, 0.3) 0%, rgba(46, 125, 102, 0.3) 100%);
+  border: 2px solid rgba(46, 125, 102, 0.5);
+  color: $mystic-gold;
+  padding: 1rem 1.5rem;
+  border-radius: $radius-md;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: $transition-base;
+  min-width: 140px;
+  text-align: center;
+
+  &:hover:not(.disabled) {
+    background: linear-gradient(135deg, rgba(27, 77, 62, 0.5) 0%, rgba(46, 125, 102, 0.5) 100%);
+    border-color: $mystic-gold;
+    color: $mystic-gold;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(46, 125, 102, 0.4);
+  }
+
+  &.disabled {
+    background: rgba(50, 50, 50, 0.3);
+    border-color: rgba(100, 100, 100, 0.3);
+    color: rgba(200, 200, 200, 0.5);
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    small {
+      font-size: 0.7rem;
+      opacity: 0.8;
+      margin-top: 0.25rem;
+    }
+  }
+}
+
+// Badge nombre de rêves analysés
+.badge-dreams-count {
+  display: inline-block;
+  background: linear-gradient(135deg, rgba(46, 125, 102, 0.4) 0%, rgba(27, 77, 62, 0.4) 100%);
+  border: 1px solid rgba(46, 125, 102, 0.5);
+  color: $mystic-gold;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.2rem 0.6rem;
+  border-radius: $radius-round;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+// ========================================
 // Responsive Buttons
 // ========================================
 @media (max-width: 991.98px) {

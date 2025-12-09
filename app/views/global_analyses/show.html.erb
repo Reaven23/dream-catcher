@@ -11,8 +11,20 @@
       </div>
 
       <div class="mystic-hero">
-        <h1><i class="bi bi-graph-up-arrow"></i> Analyse Globale</h1>
-        <p>Générée le <%= @global_analysis.created_at.strftime("%d/%m/%Y à %H:%M") %></p>
+        <h1>
+          <i class="bi bi-graph-up-arrow"></i>
+          <% if @global_analysis.first_dream_date.present? && @global_analysis.last_dream_date.present? %>
+            Analyse du <%= @global_analysis.first_dream_date.strftime("%d/%m") %> au <%= @global_analysis.last_dream_date.strftime("%d/%m/%Y") %>
+          <% else %>
+            Analyse Globale
+          <% end %>
+        </h1>
+        <p>
+          <% if @global_analysis.dreams_count.present? %>
+            <strong><%= @global_analysis.dreams_count %> rêves</strong> analysés •
+          <% end %>
+          Générée le <%= @global_analysis.created_at.strftime("%d/%m/%Y à %H:%M") %>
+        </p>
       </div>
 
       <div class="mystic-card">

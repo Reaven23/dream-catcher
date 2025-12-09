@@ -1,7 +1,7 @@
 <div class="container" data-controller="loading">
   <div class="mystic-hero">
     <h1><i class="bi bi-graph-up-arrow"></i> Analyses Globales</h1>
-    <p>Synthèse de tous vos rêves pour identifier les patterns récurrents</p>
+    <p>Synthèse de vos rêves pour identifier les patterns récurrents</p>
   </div>
 
   <div class="row justify-content-center">
@@ -10,22 +10,33 @@
         <div class="mystic-card">
           <h2><i class="bi bi-stars"></i> Générer une nouvelle analyse globale</h2>
           <p class="mb-4">
-            Analysez l'ensemble de vos <strong><%= @dreams.count %></strong> rêve(s) enregistré(s) pour découvrir les thèmes récurrents et les messages de votre inconscient.
+            Vous avez <strong><%= @dreams_count %></strong> rêve(s) enregistré(s). Choisissez combien de rêves analyser pour découvrir les thèmes récurrents et les messages de votre inconscient.
           </p>
 
-          <%= form_with url: global_analyses_path, method: :post, class: "mystic-form", data: { action: "submit->loading#start" } do |f| %>
-            <div class="text-center">
-              <%= f.submit "Générer l'analyse globale", class: "btn btn-mystic btn-lg", data: { loading_target: "button" } %>
-            </div>
-          <% end %>
+          <div class="dreams-count-options">
+            <% [[2, "Les 2 derniers"], [5, "Les 5 derniers"], [10, "Les 10 derniers"], [20, "Les 20 derniers"]].each do |count, label| %>
+              <% if @available_options.include?(count) %>
+                <%= form_with url: global_analyses_path, method: :post, class: "d-inline-block", data: { action: "submit->loading#start" } do |f| %>
+                  <%= f.hidden_field :dreams_count, value: count %>
+                  <%= f.submit label, class: "btn btn-dreams-count", data: { loading_target: "button" } %>
+                <% end %>
+              <% else %>
+                <button class="btn btn-dreams-count disabled" disabled title="Vous avez besoin d'au moins #{count} rêves">
+                  <%= label %>
+                  <small class="d-block">(<%= count - @dreams_count %> rêve(s) manquant(s))</small>
+                </button>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       <% else %>
         <div class="mystic-card">
           <div class="text-center">
             <i class="bi bi-moon" style="font-size: 4rem; color: #1B4D3E; margin-bottom: 1rem;"></i>
-            <h3>Aucun rêve enregistré</h3>
-            <p>Vous devez avoir enregistré au moins un rêve pour obtenir une analyse globale.</p>
-            <%= link_to "Enregistrer un rêve", new_dream_path, class: "btn btn-mystic mt-3" %>
+            <h3>Pas assez de rêves</h3>
+            <p>Vous devez avoir enregistré au moins <strong>2 rêves</strong> pour obtenir une analyse globale.</p>
+            <p class="text-muted">Vous avez actuellement <%= @dreams_count %> rêve(s).</p>
+            <%= link_to "Enregistrer un rêve", root_path, class: "btn btn-mystic mt-3" %>
           </div>
         </div>
       <% end %>
@@ -42,13 +53,21 @@
                 <div class="d-flex justify-content-between align-items-start">
                   <div>
                     <div class="dream-title">
-                      <i class="bi bi-graph-up-arrow"></i> Analyse globale
+                      <i class="bi bi-graph-up-arrow"></i>
+                      <% if analysis.first_dream_date.present? && analysis.last_dream_date.present? %>
+                        Analyse du <%= analysis.first_dream_date.strftime("%d/%m") %> au <%= analysis.last_dream_date.strftime("%d/%m/%Y") %>
+                      <% else %>
+                        Analyse globale
+                      <% end %>
+                      <% if analysis.dreams_count.present? %>
+                        <span class="badge-dreams-count"><%= analysis.dreams_count %> rêves</span>
+                      <% end %>
                     </div>
                     <div class="dream-date">
                       <i class="bi bi-calendar"></i> <%= analysis.created_at.strftime("%d/%m/%Y à %H:%M") %>
                     </div>
                     <div class="dream-preview mt-2">
-                      <%= truncate(analysis.interpretation, length: 200) %>
+                      <%= clean_analysis_preview(analysis.interpretation, length: 200) %>
                     </div>
                   </div>
                   <div>

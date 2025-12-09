@@ -6,6 +6,10 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo-dream.png">
+    <link rel="apple-touch-icon" href="/logo-dream.png">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,7 +23,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark mystic-nav">
       <div class="container">
         <%= link_to root_path, class: "navbar-brand mystic-brand" do %>
-          <i class="bi bi-moon-stars-fill"></i> DreamCatcher
+          <%= image_tag "logo-dream.png", class: "navbar-logo", alt: "DreamCatcher" %> DreamCatcher
         <% end %>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
           <span class="navbar-toggler-icon"></span>
