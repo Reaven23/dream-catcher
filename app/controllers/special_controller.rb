@@ -9,9 +9,7 @@ class SpecialController < ApplicationController
       { name: "🏳️‍🌈 T'es gay toi", path: "/sounds/gaydar.mp3" },
       { name: "🧠 Il faut sacher", path: "/sounds/amelie.mp3" },
       { name: "🙅‍♂️ Rien à voir", path: "/sounds/bigflo.mp3" },
-      { name: "🍆 T'es malade Bernard", path: "/sounds/bernard.mp3" },
-      { name: "💫 Féerie", path: "/sounds/fairy.mp3" },
-      { name: "🎁 Cadeau", path: "/sounds/gift.mp3" }
+      { name: "🍆 T'es malade Bernard", path: "/sounds/bernard.mp3" }
     ]
 
     @citations = [

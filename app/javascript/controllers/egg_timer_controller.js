@@ -34,10 +34,10 @@ export default class extends Controller {
     }
 
     const durations = {
-      "soft": 3,      // TEST: 3 secondes (normalement 3min30)
-      "medium": 3,    // TEST: 3 secondes (normalement 5min)
-      "hard": 3,      // TEST: 3 secondes (normalement 8min)
-      "poached": 3   // TEST: 3 secondes (normalement 4min)
+      "soft": 210,    // 3min30 (œuf à la coque)
+      "medium": 300, // 5min (œuf mollet)
+      "hard": 480,   // 8min (œuf dur)
+      "poached": 240 // 4min (œuf poché)
     }
 
     this.remainingTime = durations[selectedType] || 0
