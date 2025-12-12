@@ -1,4 +1,9 @@
 module ApplicationHelper
+  # Vérifie si l'utilisateur connecté est l'utilisateur spécial
+  def special_user?
+    current_user&.email == ENV['SPECIAL_USER_EMAIL']
+  end
+
   # Extrait un aperçu propre d'une analyse (sans les en-têtes Markdown)
   def clean_analysis_preview(text, length: 200)
     return "" if text.blank?

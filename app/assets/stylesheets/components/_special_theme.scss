@@ -1,0 +1,122 @@
+// ========================================
+// Thème Spécial ✨
+// ========================================
+
+// Couleurs personnalisées (touches plus chaudes/féminines)
+$special-pink: #e8a4d0;    // Rose plus visible
+$special-purple: #b388dd;  // Violet doux
+$special-gold: #f5d280;    // Or chaud
+$special-glow: rgba(232, 164, 208, 0.5);
+
+body.special-theme {
+  // Fond avec touche violette plus visible
+  background: linear-gradient(135deg, #0B0E0D 0%, #1a1525 40%, #12241E 100%) !important;
+
+  &::before {
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(232, 164, 208, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(179, 136, 221, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(245, 210, 128, 0.08) 0%, transparent 50%) !important;
+  }
+
+  // Navbar avec accent rosé visible
+  .mystic-nav {
+    background: linear-gradient(180deg, rgba(11, 14, 13, 0.98) 0%, rgba(26, 21, 37, 0.95) 100%) !important;
+    border-bottom: 1px solid rgba(232, 164, 208, 0.3) !important;
+
+    .mystic-brand {
+      color: $special-gold !important;
+      text-shadow: 0 0 20px rgba(245, 210, 128, 0.5), 0 0 40px $special-glow !important;
+    }
+
+    .nav-link {
+      &::after {
+        background: linear-gradient(90deg, transparent, $special-pink, transparent) !important;
+      }
+
+      &:hover {
+        color: $special-pink !important;
+        background: rgba(232, 164, 208, 0.15) !important;
+      }
+    }
+  }
+
+  // Hero avec glow rosé/violet
+  .mystic-hero-section {
+    .hero-icon {
+      color: $special-pink !important;
+      text-shadow:
+        0 0 30px rgba(232, 164, 208, 0.6),
+        0 0 60px rgba(179, 136, 221, 0.4) !important;
+    }
+
+    .hero-title {
+      text-shadow:
+        2px 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 40px $special-glow !important;
+    }
+
+    .btn-hero-primary {
+      background: linear-gradient(135deg, #1B4D3E 0%, #2E7D66 40%, rgba(232, 164, 208, 0.4) 100%) !important;
+      border-color: rgba(232, 164, 208, 0.4) !important;
+
+      &:hover {
+        box-shadow: 0 0 25px $special-glow !important;
+      }
+    }
+  }
+
+  // Cards avec bordure rosée visible
+  .mystic-card,
+  .dream-list-item,
+  .analysis-list-item {
+    border: 1px solid rgba(232, 164, 208, 0.25) !important;
+    background: linear-gradient(145deg, rgba(18, 36, 30, 0.9), rgba(26, 21, 37, 0.8)) !important;
+
+    &:hover {
+      border-color: rgba(232, 164, 208, 0.5) !important;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 25px $special-glow !important;
+    }
+  }
+
+  // Titres avec couleur spéciale
+  .dream-title,
+  .analysis-title,
+  .mystic-card h2,
+  .mystic-card h3 {
+    color: $special-gold !important;
+  }
+
+  // Boutons avec teinte rosée
+  .btn-mystic {
+    background: linear-gradient(135deg, #1B4D3E 0%, #2E7D66 50%, rgba(232, 164, 208, 0.3) 100%) !important;
+
+    &:hover {
+      box-shadow:
+        0 6px 20px rgba(27, 77, 62, 0.4),
+        0 0 20px $special-glow !important;
+    }
+  }
+
+  // Footer spécial
+  .mystic-footer {
+    background: linear-gradient(180deg, rgba(26, 21, 37, 0.95), rgba(11, 14, 13, 0.98)) !important;
+    border-top: 1px solid rgba(232, 164, 208, 0.3) !important;
+  }
+
+  // Modal avec glow rosé
+  .custom-modal-content {
+    border: 1px solid rgba(232, 164, 208, 0.3) !important;
+    background: linear-gradient(145deg, rgba(18, 36, 30, 0.98), rgba(26, 21, 37, 0.95)) !important;
+    box-shadow:
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 40px $special-glow !important;
+  }
+
+  // Scrollbar personnalisée
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, $special-pink, $special-purple);
+  }
+}

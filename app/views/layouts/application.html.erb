@@ -19,7 +19,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mystic-body" data-controller="confirm">
+  <body class="mystic-body <%= 'special-theme' if special_user? %>" data-controller="confirm">
     <nav class="navbar navbar-expand-lg navbar-dark mystic-nav">
       <div class="container">
         <%= link_to root_path, class: "navbar-brand mystic-brand" do %>
@@ -40,6 +40,13 @@
               <li class="nav-item">
                 <%= link_to "Analyse Globale", global_analyses_path, class: "nav-link" %>
               </li>
+              <% if special_user? %>
+                <li class="nav-item">
+                  <%= link_to special_page_path, class: "nav-link" do %>
+                    <i class="bi bi-stars"></i> Pour toi
+                  <% end %>
+                </li>
+              <% end %>
               <li class="nav-item dropdown mystic-dropdown-hover">
                 <a class="nav-link" href="<%= dashboard_path %>" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="bi bi-person-circle"></i> <%= current_user.first_name.presence || current_user.email.split('@').first %>
@@ -84,10 +91,18 @@
     <!-- Modale de confirmation -->
     <%= render 'shared/confirm_modal' %>
 
-    <footer class="mystic-footer text-center py-3">
-      <div class="container">
-        <p>&copy; 2025 DreamCatcher — <em>Plongez dans les mystères de vos rêves</em></p>
-      </div>
-    </footer>
+    <% if special_user? %>
+      <footer class="special-message text-center py-3">
+        <div class="container">
+          <p>✨ &copy; 2025 DreamCatcher - Made for Lisa 💅☀️ with ❤️ </p>
+        </div>
+      </footer>
+    <% else %>
+       <footer class="mystic-footer text-center py-3">
+        <div class="container">
+          <p>&copy; 2025 DreamCatcher — <em>Plongez dans les mystères de vos rêves</em></p>
+        </div>
+      </footer>
+    <% end %>
   </body>
 </html>

@@ -42,5 +42,9 @@
 // Utilitaires
 @import 'components/utilities';
 
+// Thème spécial (avant responsive pour pouvoir être overridé si besoin)
+@import 'components/special_theme';
+@import 'components/special_page';
+
 // Responsive (toujours en dernier)
 @import 'components/responsive';

@@ -48,10 +48,9 @@ body.mystic-body {
   border-top: 1px solid $mystic-border-primary;
   color: $mystic-text-muted;
   height: 10vh;
-  display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  flex-shrink: 0;  display: flex;
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1rem;
   letter-spacing: 0.5px;
@@ -59,6 +58,44 @@ body.mystic-body {
   p {
     margin: 0;
     opacity: 0.8;
+  }
+
+
+
+}
+
+.special-message {
+  font-size: 1.4rem !important;
+  font-weight: 500 !important;
+  color: #F5F2EB !important; // Blanc par défaut
+  opacity: 1 !important;
+  letter-spacing: 1px !important;
+  cursor: default;
+  transition: all 0.5s ease;
+
+  // Effet glow animé au hover (couleurs du site)
+  &:hover {
+    color: $mystic-gold !important;
+    text-shadow:
+      0 0 10px rgba(230, 200, 104, 0.6),
+      0 0 20px rgba(46, 125, 102, 0.4),
+      0 0 30px rgba(27, 77, 62, 0.3);
+    animation: glow-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow:
+      0 0 10px rgba(230, 200, 104, 0.6),
+      0 0 20px rgba(46, 125, 102, 0.4),
+      0 0 30px rgba(27, 77, 62, 0.3);
+  }
+  50% {
+    text-shadow:
+      0 0 15px rgba(230, 200, 104, 0.8),
+      0 0 30px rgba(46, 125, 102, 0.6),
+      0 0 45px rgba(27, 77, 62, 0.5);
   }
 }
 

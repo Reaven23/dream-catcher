@@ -1,0 +1,122 @@
+<div class="special-page-container">
+  <div class="container py-5">
+    <!-- En-tête avec titre -->
+    <div class="text-center mb-5">
+      <h1 class="special-page-title">
+        <i class="bi bi-stars"></i> Pour toi, Lisa <i class="bi bi-stars"></i>
+      </h1>
+      <p class="special-page-subtitle">Un espace rien que pour toi ✨</p>
+    </div>
+
+    <!-- Message personnel -->
+    <div class="special-message-card mystic-card mb-5">
+      <div class="special-message-header">
+        <i class="bi bi-heart-fill"></i>
+        <h2>Un message pour toi</h2>
+      </div>
+      <div class="special-message-content">
+        <p class="special-personal-message">
+          Chère Lisa,<br><br>
+
+          Ce site est un cadeau fait avec amour, spécialement pour toi. Chaque rêve que tu partages ici est précieux,
+          et j'ai voulu créer un espace où tu peux explorer les mystères de ton subconscient en toute sérénité.<br><br>
+
+          J'espère que cette petite application te permettra de mieux comprendre tes rêves et de découvrir
+          les messages cachés qu'ils contiennent. N'hésite pas à explorer, à rêver, et à laisser ton imagination
+          guider tes pas dans ce monde mystique.<br><br>
+
+          Avec tout mon amour,<br>
+          <em>Ton créateur secret 💫</em>
+        </p>
+      </div>
+    </div>
+
+    <!-- Section Egg Cooker -->
+    <div class="special-egg-cooker-card mystic-card mb-5" data-controller="egg-timer">
+      <div class="special-egg-cooker-header">
+        <i class="bi bi-egg-fried"></i>
+        <h2>Egg Cooker 🥚</h2>
+      </div>
+      <div class="special-egg-cooker-content">
+        <p class="egg-cooker-description">
+          Choisis le type d'œuf que tu veux cuire et lance le timer !
+        </p>
+
+        <!-- Sélection du son d'alarme -->
+        <div class="egg-audio-selector">
+          <label for="egg-audio-select" class="egg-audio-label">
+            <i class="bi bi-music-note-beamed"></i> Choisis ton son d'alarme
+          </label>
+          <select
+            id="egg-audio-select"
+            class="form-select egg-audio-select"
+            data-egg-timer-target="audioSelect"
+            data-action="change->egg-timer#handleAudioChange"
+          >
+            <% @alarm_sounds.each do |sound| %>
+              <option value="<%= sound[:path] || '' %>" <%= 'selected' if sound[:path].nil? %>>
+                <%= sound[:name] %>
+              </option>
+            <% end %>
+          </select>
+        </div>
+
+        <div class="egg-cooker-controls">
+          <select class="form-select egg-select" data-egg-timer-target="select">
+            <option value="">-- Choisis ton œuf --</option>
+            <option value="soft">🥚 Œuf à la coque (3min30)</option>
+            <option value="medium">🥚 Œuf mollet (5min)</option>
+            <option value="hard">🥚 Œuf dur (8min)</option>
+            <option value="poached">🥚 Œuf poché (4min)</option>
+          </select>
+
+          <div class="egg-timer-display" data-egg-timer-target="display">
+            00:00
+          </div>
+
+          <div class="egg-timer-progress-container">
+            <div class="egg-timer-progress" data-egg-timer-target="progress"></div>
+          </div>
+
+          <div class="egg-cooker-buttons">
+            <button
+              type="button"
+              class="btn btn-mystic egg-start-btn"
+              data-egg-timer-target="button"
+              data-action="click->egg-timer#start"
+            >
+              <i class="bi bi-play-fill"></i> Démarrer
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary egg-stop-btn"
+              data-egg-timer-target="button"
+              data-action="click->egg-timer#stop"
+            >
+              <i class="bi bi-stop-fill"></i> Arrêter
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section Citations -->
+    <div class="special-quote-card mystic-card">
+      <div class="special-quote-header">
+        <i class="bi bi-quote"></i>
+        <h2>Citation du jour</h2>
+        <p class="special-quote-subtitle">Rafraîchis la page pour en découvrir une nouvelle</p>
+      </div>
+      <div class="special-quote-content">
+        <blockquote class="special-quote">
+          <%= @citation_aleatoire %>
+        </blockquote>
+      </div>
+    </div>
+
+    <!-- Bouton pour rafraîchir -->
+    <div class="text-center mt-4">
+      <%= link_to "Découvrir une autre citation", special_page_path, class: "btn btn-mystic" %>
+    </div>
+  </div>
+</div>

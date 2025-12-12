@@ -15,6 +15,9 @@ Rails.application.routes.draw do
     delete :destroy_account
   end
 
+  # Page spéciale "Pour toi"
+  get 'pour-toi', to: 'special#show', as: 'special_page'
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
