@@ -34,8 +34,7 @@
   align-items: center;
   position: relative;
   z-index: 1;
-  background: rgba(10, 10, 15, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 15, 0.7);
   border-bottom: 1px solid $mystic-border-primary;
 }
 
@@ -358,8 +357,7 @@
   position: relative;
   z-index: 1;
   border-top: 1px solid $mystic-border-primary;
-  background: rgba(10, 10, 15, 0.5);
-  backdrop-filter: blur(10px);
+  background: rgba(10, 10, 15, 0.7);
 }
 
 .btn-onboarding-prev,
