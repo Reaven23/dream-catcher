@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :dreams, dependent: :destroy
   has_many :analyses, through: :dreams
   has_many :global_analyses, dependent: :destroy
+  has_many :plants, dependent: :destroy
 
   # Les colonnes JSONB PostgreSQL gèrent nativement la sérialisation
 

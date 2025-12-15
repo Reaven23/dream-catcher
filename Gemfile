@@ -52,7 +52,10 @@ gem "devise"
 
 # HTTP client for AI API calls
 gem "httparty"
-gem "nokogiri", "~> 1.16.7" 
+
+# Unified AI client (text + images) for OpenAI, etc.
+gem "ruby_llm", "~> 1.2.0"
+gem "nokogiri", "~> 1.16.7"
 
 # Markdown parser for AI responses
 gem "redcarpet"

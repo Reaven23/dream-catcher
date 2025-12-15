@@ -100,6 +100,72 @@
       </div>
     </div>
 
+    <!-- Section Jardin de plantes IA -->
+    <div class="special-plant-garden mystic-card mb-5">
+      <div class="special-plant-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div>
+          <h2 class="mb-1">
+            <i class="bi bi-flower3"></i> Ton jardin secret 🌿
+          </h2>
+          <p class="text-muted mb-0">
+            Envoie une photo d'une de tes plantes, l'IA devine laquelle c'est et crée sa fiche d'entretien.
+          </p>
+        </div>
+        <div>
+          <%= form_with model: @plant, url: plants_path, html: { multipart: true, class: "d-flex flex-column flex-sm-row align-items-sm-center gap-2" } do |f| %>
+            <div>
+              <%= f.file_field :photo, accept: "image/*", class: "form-control", required: true %>
+            </div>
+            <div class="text-sm-end">
+              <%= f.submit "Ajouter une plante", class: "btn btn-mystic" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if @plants.any? %>
+        <div class="row mt-4">
+          <% @plants.each do |plant| %>
+            <div class="col-md-6 col-lg-4 mb-4">
+              <div class="mystic-card h-100">
+                <% if plant.photo.attached? %>
+                  <div class="mb-3 text-center">
+                    <%= image_tag plant.photo, class: "img-fluid rounded", alt: plant.name %>
+                  </div>
+                <% end %>
+                <h3 class="mb-2"><i class="bi bi-flower1"></i> <%= plant.name %></h3>
+                <% if plant.description.present? %>
+                  <p class="text-muted mb-3"><%= plant.description %></p>
+                <% end %>
+
+                <ul class="list-unstyled small mb-0">
+                  <% if plant.sun_need.present? %>
+                    <li><strong>Soleil :</strong> <%= plant.sun_need %></li>
+                  <% end %>
+                  <% if plant.water_need.present? %>
+                    <li><strong>Eau :</strong> <%= plant.water_need %></li>
+                  <% end %>
+                  <% if plant.soil_need.present? %>
+                    <li><strong>Sol :</strong> <%= plant.soil_need %></li>
+                  <% end %>
+                  <% if plant.wind_need.present? %>
+                    <li><strong>Vent :</strong> <%= plant.wind_need %></li>
+                  <% end %>
+                  <% if plant.other_needs.present? %>
+                    <li><strong>Autres conseils :</strong> <%= plant.other_needs %></li>
+                  <% end %>
+                </ul>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-muted mt-3 mb-0">
+          Tu n'as pas encore ajouté de plante. Commence par envoyer une première photo 🌱
+        </p>
+      <% end %>
+    </div>
+
     <!-- Section Citations -->
     <div class="special-quote-card mystic-card">
       <div class="special-quote-header">

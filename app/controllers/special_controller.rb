@@ -29,6 +29,9 @@ class SpecialController < ApplicationController
       "Dans le royaume des rêves, tout est possible. 👑"
     ]
     @citation_aleatoire = @citations.sample
+
+    @plant = Plant.new
+    @plants = current_user.plants.order(created_at: :desc)
   end
 
   private

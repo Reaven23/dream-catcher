@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get "webmanifest"    => "pwa#manifest"
+  get "service-worker" => "pwa#service_worker"
+
   devise_for :users
 
   root 'home#index'
@@ -14,6 +17,8 @@ Rails.application.routes.draw do
     patch :update_quiz
     delete :destroy_account
   end
+
+  resources :plants, only: [:create]
 
   # Page spéciale "Pour toi"
   get 'pour-toi', to: 'special#show', as: 'special_page'
