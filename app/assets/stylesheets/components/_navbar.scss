@@ -174,9 +174,7 @@
       margin-top: 0 !important;
       opacity: 0 !important;
       visibility: hidden !important;
-      transform: translateY(8px);
       transition: all 0.2s ease-in-out;
-      pointer-events: none !important;
     }
 
     // Afficher au hover OU quand Bootstrap l'ouvre (.show)
@@ -184,8 +182,6 @@
     > .dropdown-menu.show {
       opacity: 1 !important;
       visibility: visible !important;
-      transform: translateY(0) !important;
-      pointer-events: auto !important;
     }
   }
 }
