@@ -52,6 +52,7 @@ gem "devise"
 
 # HTTP client for AI API calls
 gem "httparty"
+gem "nokogiri", "~> 1.16.7" 
 
 # Markdown parser for AI responses
 gem "redcarpet"
