@@ -10,6 +10,8 @@
   height: 12vh;
   display: flex;
   align-items: center;
+  position: relative;
+  z-index: 1000;
 
   .container {
     display: flex;
@@ -175,6 +177,7 @@
       opacity: 0 !important;
       visibility: hidden !important;
       transition: all 0.2s ease-in-out;
+      z-index: 1100;
     }
 
     // Afficher au hover OU quand Bootstrap l'ouvre (.show)
