@@ -221,6 +221,8 @@ class DreamInterpreterService
   end
 
   def call_ai_api(prompt)
+    return generate_demo_response unless special_user?
+
     api_key = ENV['OPENAI_API_KEY']
 
     if api_key.blank?
@@ -295,6 +297,8 @@ class DreamInterpreterService
   end
 
   def call_ai_api_global(prompt)
+    return generate_demo_global_interpretation unless special_user?
+
     api_key = ENV['OPENAI_API_KEY']
 
     if api_key.blank?
@@ -334,6 +338,11 @@ class DreamInterpreterService
       Rails.logger.error("Erreur API IA: #{e.message}")
       generate_demo_global_interpretation
     end
+  end
+
+  def special_user?
+    special_email = ENV['SPECIAL_USER_EMAIL']
+    @user&.email.present? && special_email.present? && @user.email == special_email
   end
 
   def generate_demo_interpretation_text
