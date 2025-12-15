@@ -22,20 +22,24 @@
       </div>
       <h2 class="step-title">Faisons connaissance</h2>
       <p class="step-subtitle">Quelques informations pour personnaliser votre expérience</p>
+      <p class="step-optional-hint">
+        <i class="bi bi-info-circle"></i> Tous les champs sont optionnels, remplissez ce que vous souhaitez partager.
+        <strong>Cependant, plus vous partagez d'informations, plus l'analyse de vos rêves sera précise et pertinente.</strong>
+      </p>
 
       <div class="step-content">
         <div class="form-group">
-          <label class="onboarding-label">Quel est votre prénom ?</label>
-          <%= f.text_field :first_name, class: "onboarding-input", placeholder: "Votre prénom...", required: true %>
+          <label class="onboarding-label">Quel est votre prénom ? <span class="optional-badge">(optionnel)</span></label>
+          <%= f.text_field :first_name, class: "onboarding-input", placeholder: "Votre prénom..." %>
         </div>
 
         <div class="form-group">
-          <label class="onboarding-label">Quel est votre âge ?</label>
-          <%= f.number_field :age, class: "onboarding-input", placeholder: "Votre âge...", min: 1, max: 120, required: true %>
+          <label class="onboarding-label">Quel est votre âge ? <span class="optional-badge">(optionnel)</span></label>
+          <%= f.number_field :age, class: "onboarding-input", placeholder: "Votre âge...", min: 1, max: 120 %>
         </div>
 
         <div class="form-group">
-          <label class="onboarding-label">Quel est votre genre ?</label>
+          <label class="onboarding-label">Quel est votre genre ? <span class="optional-badge">(optionnel)</span></label>
           <div class="options-container" data-multiple="false">
             <%= f.hidden_field :gender %>
             <% User::GENRES.each do |genre| %>
@@ -47,12 +51,12 @@
         </div>
 
         <div class="form-group">
-          <label class="onboarding-label">Dans quel pays vivez-vous ?</label>
+          <label class="onboarding-label">Dans quel pays vivez-vous ? <span class="optional-badge">(optionnel)</span></label>
           <%= f.text_field :pays, class: "onboarding-input", placeholder: "France, Belgique, Suisse..." %>
         </div>
 
         <div class="form-group">
-          <label class="onboarding-label">Quel est votre signe astrologique ?</label>
+          <label class="onboarding-label">Quel est votre signe astrologique ? <span class="optional-badge">(optionnel)</span></label>
           <div class="options-container zodiac-options" data-multiple="false">
             <%= f.hidden_field :zodiac_sign %>
             <% User::SIGNES_ASTRO.each_with_index do |signe, i| %>

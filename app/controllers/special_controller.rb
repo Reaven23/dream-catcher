@@ -3,7 +3,6 @@ class SpecialController < ApplicationController
   before_action :check_special_user
 
   def show
-    # Sons d'alarme disponibles (mets tes fichiers dans public/sounds/)
     @alarm_sounds = [
       { name: "Son par défaut", path: nil },
       { name: "🏳️‍🌈 T'es gay toi", path: "/sounds/gaydar.mp3" },

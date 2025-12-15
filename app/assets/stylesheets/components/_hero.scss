@@ -44,6 +44,8 @@
       radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.15) 0%, transparent 50%),
       radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
     animation: pulse 8s ease-in-out infinite;
+    will-change: opacity;
+    transform: translateZ(0); // Force GPU acceleration
   }
 }
 
@@ -72,6 +74,8 @@
       60% 70% 0 0 rgba(107, 70, 193, 0.3),
       80% 50% 0 0 rgba(107, 70, 193, 0.2);
     animation: twinkle 3s ease-in-out infinite;
+    will-change: opacity, transform;
+    transform: translateZ(0); // Force GPU acceleration
   }
 
   &::before {
@@ -105,6 +109,8 @@
     0 0 20px rgba(230, 200, 104, 0.5),
     0 0 40px rgba(230, 200, 104, 0.3),
     0 0 60px rgba(27, 77, 62, 0.2);
+  will-change: transform;
+  transform: translateZ(0); // Force GPU acceleration
 
   i {
     display: block;

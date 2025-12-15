@@ -24,6 +24,15 @@ export default class extends Controller {
 
   disconnect() {
     this.stopTimer()
+    // Fermer l'AudioContext pour éviter les fuites mémoire
+    if (this.audioContext && this.audioContext.state !== 'closed') {
+      this.audioContext.close().catch(e => console.log("Erreur fermeture AudioContext:", e))
+    }
+    // Libérer l'audio personnalisé
+    if (this.customAudio) {
+      this.customAudio.pause()
+      this.customAudio = null
+    }
   }
 
   start() {

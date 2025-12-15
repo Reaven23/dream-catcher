@@ -2,6 +2,23 @@
 // Styles de base
 // ========================================
 
+// Optimisation des performances pour Chrome
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// Réduire les animations si l'utilisateur préfère
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 body.mystic-body {
   background: linear-gradient(135deg, #0B0E0D 0%, #12241E 50%, #0B0E0D 100%);
   min-height: 100vh;
@@ -81,6 +98,7 @@ body.mystic-body {
       0 0 20px rgba(46, 125, 102, 0.4),
       0 0 30px rgba(27, 77, 62, 0.3);
     animation: glow-pulse 1.5s ease-in-out infinite;
+    will-change: text-shadow;
   }
 }
 

@@ -28,8 +28,8 @@ class User < ApplicationRecord
   STYLES_ANALYSE = ["Scientifique / psycho", "Symbolique / imagé", "Coaching / conseils", "Mélange"].freeze
 
   def quiz_completed?
-    # Rétrocompatible avec l'ancien système
-    onboarding_completed? || (first_name.present? && zodiac_sign.present? && age.present?)
+    # Le quiz est complété si onboarding_completed est true (peu importe les champs remplis)
+    onboarding_completed?
   end
 
   # Retourne le pourcentage de complétion du quiz
