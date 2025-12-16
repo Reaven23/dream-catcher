@@ -14,9 +14,41 @@ class PlantsController < ApplicationController
     end
 
     if @plant.save
-      redirect_to special_page_path, notice: "Ta plante a été ajoutée à ton jardin 🌱"
+      respond_to do |format|
+        format.turbo_stream do
+          @plant = Plant.new
+          @plants = current_user.plants.order(created_at: :desc)
+          render "special/plants_update"
+        end
+        format.html do
+          redirect_to special_page_path(anchor: 'plants'), notice: "Ta plante a été ajoutée à ton jardin 🌱"
+        end
+      end
     else
-      redirect_to special_page_path, alert: "Impossible d'ajouter la plante. Vérifie la photo et réessaie."
+      respond_to do |format|
+        format.turbo_stream do
+          @plants = current_user.plants.order(created_at: :desc)
+          render "special/plants_update"
+        end
+        format.html do
+          redirect_to special_page_path(anchor: 'plants'), alert: "Impossible d'ajouter la plante. Vérifie la photo et réessaie."
+        end
+      end
+    end
+  end
+
+  def destroy
+    @plant = current_user.plants.find(params[:id])
+    @plant.destroy
+    respond_to do |format|
+      format.turbo_stream do
+        @plant = Plant.new
+        @plants = current_user.plants.order(created_at: :desc)
+        render "special/plants_update"
+      end
+      format.html do
+        redirect_to special_page_path(anchor: 'plants'), notice: "La plante a été supprimée de ton jardin 🌿"
+      end
     end
   end
 

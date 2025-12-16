@@ -8,26 +8,17 @@
       <p class="special-page-subtitle">Un espace rien que pour toi ✨</p>
     </div>
 
-    <!-- Message personnel -->
-    <div class="special-message-card mystic-card mb-5">
-      <div class="special-message-header">
-        <i class="bi bi-heart-fill"></i>
-        <h2>Un message pour toi</h2>
+     <!-- Section Citations -->
+    <div class="special-quote-card mystic-card">
+      <div class="special-quote-header">
+        <i class="bi bi-quote"></i>
+        <h2>Citation du jour</h2>
+        <p class="special-quote-subtitle">Rafraîchis la page pour en découvrir une nouvelle</p>
       </div>
-      <div class="special-message-content">
-        <p class="special-personal-message">
-          Chère Lisa,<br><br>
-
-          Ce site est un cadeau fait avec amour, spécialement pour toi. Chaque rêve que tu partages ici est précieux,
-          et j'ai voulu créer un espace où tu peux explorer les mystères de ton subconscient en toute sérénité.<br><br>
-
-          J'espère que cette petite application te permettra de mieux comprendre tes rêves et de découvrir
-          les messages cachés qu'ils contiennent. N'hésite pas à explorer, à rêver, et à laisser ton imagination
-          guider tes pas dans ce monde mystique.<br><br>
-
-          Avec tout mon amour,<br>
-          <em>Ton créateur secret 💫</em>
-        </p>
+      <div class="special-quote-content">
+        <blockquote class="special-quote">
+          <%= @citation_aleatoire %>
+        </blockquote>
       </div>
     </div>
 
@@ -101,84 +92,31 @@
     </div>
 
     <!-- Section Jardin de plantes IA -->
-    <div class="special-plant-garden mystic-card mb-5">
-      <div class="special-plant-header d-flex justify-content-between align-items-center flex-wrap gap-3">
-        <div>
-          <h2 class="mb-1">
-            <i class="bi bi-flower3"></i> Ton jardin secret 🌿
-          </h2>
-          <p class="text-muted mb-0">
-            Envoie une photo d'une de tes plantes, l'IA devine laquelle c'est et crée sa fiche d'entretien.
-          </p>
-        </div>
-        <div>
-          <%= form_with model: @plant, url: plants_path, html: { multipart: true, class: "d-flex flex-column flex-sm-row align-items-sm-center gap-2" } do |f| %>
-            <div>
-              <%= f.file_field :photo, accept: "image/*", class: "form-control", required: true %>
-            </div>
-            <div class="text-sm-end">
-              <%= f.submit "Ajouter une plante", class: "btn btn-mystic" %>
-            </div>
-          <% end %>
-        </div>
+    <%= render "plants_garden" %>
+
+    <div class="special-message-card mystic-card mb-5">
+      <div class="special-message-header">
+        <i class="bi bi-heart-fill"></i>
+        <h2>Un message pour toi</h2>
       </div>
+      <div class="special-message-content">
+        <p class="special-personal-message">
+          Chère Lisa,<br><br>
 
-      <% if @plants.any? %>
-        <div class="row mt-4">
-          <% @plants.each do |plant| %>
-            <div class="col-md-6 col-lg-4 mb-4">
-              <div class="mystic-card h-100">
-                <% if plant.photo.attached? %>
-                  <div class="mb-3 text-center">
-                    <%= image_tag plant.photo, class: "img-fluid rounded", alt: plant.name %>
-                  </div>
-                <% end %>
-                <h3 class="mb-2"><i class="bi bi-flower1"></i> <%= plant.name %></h3>
-                <% if plant.description.present? %>
-                  <p class="text-muted mb-3"><%= plant.description %></p>
-                <% end %>
+          Ce site est un cadeau fait avec amour, spécialement pour toi. Chaque rêve que tu partages ici est précieux,
+          et j'ai voulu créer un espace où tu peux explorer les mystères de ton subconscient en toute sérénité.<br><br>
 
-                <ul class="list-unstyled small mb-0">
-                  <% if plant.sun_need.present? %>
-                    <li><strong>Soleil :</strong> <%= plant.sun_need %></li>
-                  <% end %>
-                  <% if plant.water_need.present? %>
-                    <li><strong>Eau :</strong> <%= plant.water_need %></li>
-                  <% end %>
-                  <% if plant.soil_need.present? %>
-                    <li><strong>Sol :</strong> <%= plant.soil_need %></li>
-                  <% end %>
-                  <% if plant.wind_need.present? %>
-                    <li><strong>Vent :</strong> <%= plant.wind_need %></li>
-                  <% end %>
-                  <% if plant.other_needs.present? %>
-                    <li><strong>Autres conseils :</strong> <%= plant.other_needs %></li>
-                  <% end %>
-                </ul>
-              </div>
-            </div>
-          <% end %>
-        </div>
-      <% else %>
-        <p class="text-muted mt-3 mb-0">
-          Tu n'as pas encore ajouté de plante. Commence par envoyer une première photo 🌱
+          J'espère que cette petite application te permettra de mieux comprendre tes rêves et de découvrir
+          les messages cachés qu'ils contiennent. N'hésite pas à explorer, à rêver, et à laisser ton imagination
+          guider tes pas dans ce monde mystique.<br><br>
+
+          Avec tout mon amour,<br>
+          <em>Ton créateur secret 💫</em>
         </p>
-      <% end %>
+      </div>
     </div>
 
-    <!-- Section Citations -->
-    <div class="special-quote-card mystic-card">
-      <div class="special-quote-header">
-        <i class="bi bi-quote"></i>
-        <h2>Citation du jour</h2>
-        <p class="special-quote-subtitle">Rafraîchis la page pour en découvrir une nouvelle</p>
-      </div>
-      <div class="special-quote-content">
-        <blockquote class="special-quote">
-          <%= @citation_aleatoire %>
-        </blockquote>
-      </div>
-    </div>
+
 
     <!-- Bouton pour rafraîchir -->
     <div class="text-center mt-4">
