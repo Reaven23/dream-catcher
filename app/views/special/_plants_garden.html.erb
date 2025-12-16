@@ -1,4 +1,4 @@
-<turbo-frame id="plants">
+<turbo-frame id="plants" data-controller="plants-loader">
   <div class="special-plant-garden mystic-card mb-5">
     <div class="special-plant-header d-flex justify-content-between align-items-center flex-wrap gap-3">
       <div>
@@ -10,7 +10,11 @@
         </p>
       </div>
       <div class="d-flex w-100 justify-content-center justify-content-sm-end">
-        <%= form_with model: @plant, url: plants_path, html: { multipart: true, class: "d-flex flex-column flex-sm-row align-items-center align-items-sm-center justify-content-center gap-2", data: { controller: "file-input" } } do |f| %>
+        <%= form_with model: @plant,
+                      url: plants_path,
+                      html: { multipart: true,
+                              class: "d-flex flex-column flex-sm-row align-items-center align-items-sm-center justify-content-center gap-2",
+                              data: { controller: "file-input" } } do |f| %>
           <div class="plant-file-input-wrapper">
             <%= f.file_field :photo, accept: "image/*", capture: "environment", class: "plant-file-input", required: true, data: { action: "change->file-input#updateLabel", file_input_target: "input" } %>
             <label for="<%= f.field_id(:photo) %>" class="plant-file-label">
@@ -81,5 +85,27 @@
         Tu n'as pas encore ajouté de plante. Commence par envoyer une première photo 🌱
       </p>
     <% end %>
+  </div>
+
+  <!-- Loader Fullscreen pour analyse de plante -->
+  <div class="loading-fullscreen" data-plants-loader-target="overlay" style="display: none;">
+    <div class="loading-fullscreen-content">
+      <div class="mystic-spinner-large">
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-ring"></div>
+        <div class="spinner-moon">🌿</div>
+      </div>
+      <h2 class="loading-title">Analyse de ta plante en cours...</h2>
+      <p class="loading-text">
+        L'IA identifie ta plante et génère sa fiche d'entretien<br>
+        <small>Tu pourras bientôt l'ajouter à ton jardin secret</small>
+      </p>
+      <div class="loading-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
   </div>
 </turbo-frame>

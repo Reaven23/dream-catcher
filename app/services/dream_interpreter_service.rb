@@ -221,6 +221,10 @@ class DreamInterpreterService
   end
 
   def call_ai_api(prompt)
+    # Mode démo global (désactive tous les appels API IA)
+    return generate_demo_response if ai_demo_mode?
+
+    # En mode normal, seuls les special users avec clé API ont accès à l'IA
     return generate_demo_response unless special_user?
 
     api_key = ENV['OPENAI_API_KEY']
@@ -297,6 +301,10 @@ class DreamInterpreterService
   end
 
   def call_ai_api_global(prompt)
+    # Mode démo global (désactive tous les appels API IA)
+    return generate_demo_global_interpretation if ai_demo_mode?
+
+    # En mode normal, seuls les special users avec clé API ont accès à l'IA
     return generate_demo_global_interpretation unless special_user?
 
     api_key = ENV['OPENAI_API_KEY']
@@ -343,6 +351,14 @@ class DreamInterpreterService
   def special_user?
     special_email = ENV['SPECIAL_USER_EMAIL']
     @user&.email.present? && special_email.present? && @user.email == special_email
+  end
+
+  # Mode démo forcé pour les tests : toujours true
+  # Pour remettre l'IA réelle, soit :
+  # - remplace par une lecture d'ENV, soit
+  # - supprime les appels à ai_demo_mode? dans call_ai_api / call_ai_api_global
+  def ai_demo_mode?
+    true
   end
 
   def generate_demo_interpretation_text

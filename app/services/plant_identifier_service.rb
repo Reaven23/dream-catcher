@@ -8,6 +8,9 @@ class PlantIdentifierService
   # Retourne un hash d'attributs pour la plante
   # { name:, description:, sun_need:, water_need:, soil_need:, wind_need:, other_needs: }
   def identify
+    # Mode démo global : on ne fait jamais d'appel API
+    return demo_attributes if ai_demo_mode?
+
     unless special_user?
       return demo_attributes
     end
@@ -61,6 +64,14 @@ class PlantIdentifierService
 
       Réponds uniquement avec cet objet JSON.
     PROMPT
+  end
+
+  # Mode démo forcé pour les tests : toujours true
+  # Pour remettre l'IA réelle, soit :
+  # - remplace par une lecture d'ENV, soit
+  # - supprime l'appel à ai_demo_mode? dans identify
+  def ai_demo_mode?
+    true
   end
 
   def special_user?

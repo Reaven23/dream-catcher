@@ -19,8 +19,10 @@ export default class extends Controller {
     document.removeEventListener("turbo:load", this.boundStop)
   }
 
-  // Appelé via data-action="click->loading#start" sur le bouton submit
+  // Appelé via data-action="submit->loading#start" sur le formulaire
   start(event) {
+    console.log("[loading] start", event.type, this.overlayTarget)
+
     // Afficher l'overlay
     if (this.hasOverlayTarget) {
       this.overlayTarget.style.display = "flex"
