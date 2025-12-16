@@ -9,7 +9,7 @@ class PlantIdentifierService
   # { name:, description:, sun_need:, water_need:, soil_need:, wind_need:, other_needs: }
   def identify
     # Mode démo global : on ne fait jamais d'appel API
-    return demo_attributes if ai_demo_mode?
+    # return demo_attributes if ai_demo_mode?
 
     unless special_user?
       return demo_attributes

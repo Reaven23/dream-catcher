@@ -106,6 +106,31 @@ body.special-theme {
     border-top: 1px solid rgba(232, 164, 208, 0.3) !important;
   }
 
+  // Footer \"Made for Lisa\" responsive
+  footer.special-message {
+    p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.03em;
+      color: rgba(245, 242, 235, 0.9);
+      margin: 0;
+    }
+
+    @media (max-width: 768px) {
+      p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+        padding: 0 0.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      p {
+        font-size: 0.8rem;
+      }
+    }
+  }
+
   // Modal avec glow rosé
   .custom-modal-content {
     border: 1px solid rgba(232, 164, 208, 0.3) !important;
