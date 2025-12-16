@@ -9,17 +9,17 @@
           Envoie une photo d'une de tes plantes, l'IA devine laquelle c'est et crée sa fiche d'entretien.
         </p>
       </div>
-      <div>
-        <%= form_with model: @plant, url: plants_path, html: { multipart: true, class: "d-flex flex-column flex-sm-row align-items-sm-center gap-2", data: { controller: "file-input" } } do |f| %>
+      <div class="d-flex w-100 justify-content-center justify-content-sm-end">
+        <%= form_with model: @plant, url: plants_path, html: { multipart: true, class: "d-flex flex-column flex-sm-row align-items-center align-items-sm-center justify-content-center gap-2", data: { controller: "file-input" } } do |f| %>
           <div class="plant-file-input-wrapper">
-            <%= f.file_field :photo, accept: "image/*", class: "plant-file-input", required: true, data: { action: "change->file-input#updateLabel", file_input_target: "input" } %>
+            <%= f.file_field :photo, accept: "image/*", capture: "environment", class: "plant-file-input", required: true, data: { action: "change->file-input#updateLabel", file_input_target: "input" } %>
             <label for="<%= f.field_id(:photo) %>" class="plant-file-label">
               <i class="bi bi-camera-fill"></i>
               <span class="plant-file-label-text" data-file-input-target="labelText">Choisir une photo</span>
               <span class="plant-file-name" data-file-input-target="fileName"></span>
             </label>
           </div>
-          <div class="text-sm-end">
+          <div class="text-center text-sm-end">
             <%= f.submit "Ajouter une plante", class: "btn btn-mystic" %>
           </div>
         <% end %>
