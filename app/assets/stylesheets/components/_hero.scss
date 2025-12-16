@@ -208,6 +208,19 @@
 // Responsive Hero - Mobile
 // ========================================
 @media (max-width: 575.98px) {
+  // Sur mobile, pour la page d'accueil : hero prend tout l'espace disponible
+  // Navbar ~12vh (avec logo) + Footer ~8vh = ~20vh, donc hero = 100vh - 20vh = 80vh
+  body.mystic-body.home-page .mystic-main.home-main .mystic-hero-section {
+    height: calc(100vh - 20vh);
+    min-height: calc(100vh - 20vh);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 0.75rem;
+    overflow: hidden;
+  }
+
+  // Pour les autres pages, garder le min-height
   .mystic-hero-section {
     min-height: calc(100vh - 100px); // Navbar (~50px) + Footer (~50px)
     padding: 1.5rem 0.75rem;

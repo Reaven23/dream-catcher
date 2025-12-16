@@ -24,7 +24,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="mystic-body <%= 'special-theme' if special_user? %>" data-controller="confirm">
+  <body class="mystic-body <%= 'special-theme' if special_user? %><%= ' home-page' if controller_name == 'home' && action_name == 'index' %>" data-controller="confirm">
     <nav class="navbar navbar-expand-lg navbar-dark mystic-nav">
       <div class="container">
         <%= link_to root_path, class: "navbar-brand mystic-brand" do %>
