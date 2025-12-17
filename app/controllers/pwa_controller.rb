@@ -3,9 +3,7 @@ class PwaController < ApplicationController
   skip_forgery_protection
 
   def service_worker
-    respond_to do |format|
-      format.js { render content_type: 'application/javascript' }
-    end
+    render content_type: 'application/javascript'
   end
 
   def manifest
