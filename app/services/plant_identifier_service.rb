@@ -42,7 +42,7 @@ class PlantIdentifierService
 
   def prompt
     <<~PROMPT
-      Tu reçois une photo d'une plante.
+      Tu es un expert en plante et reconnait immédiattement les plantes avec une image et leur besoin. Tu reçois une photo d'une plante.
 
       Objectif:
       - Identifier la plante de la manière la plus précise possible (espèce ou au moins type).
@@ -58,7 +58,7 @@ class PlantIdentifierService
           "water": "Besoins en eau (fréquence, quantité...).",
           "soil": "Type de sol idéal (drainant, riche, acide, etc.).",
           "wind": "Sensibilité au vent / exposition recommandée.",
-          "other": "Autres conseils d'entretien utiles."
+          "other": "Autres conseils d'entretien utiles généraux mais aussi spécifique à la photo que tu as vu"
         }
       }
 
