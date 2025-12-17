@@ -34,6 +34,9 @@ export default class extends Controller {
   }
 
   showStep(index) {
+    // Scroll to top of the container
+    this.element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
     // Cacher toutes les étapes
     this.stepTargets.forEach((step, i) => {
       step.classList.toggle('active', i === index)
