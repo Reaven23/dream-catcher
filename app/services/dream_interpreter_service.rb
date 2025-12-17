@@ -222,7 +222,7 @@ class DreamInterpreterService
 
   def call_ai_api(prompt)
     # Mode démo global (désactive tous les appels API IA)
-    return generate_demo_response if ai_demo_mode?
+    # return generate_demo_response if ai_demo_mode?
 
     # En mode normal, seuls les special users avec clé API ont accès à l'IA
     return generate_demo_response unless special_user?
