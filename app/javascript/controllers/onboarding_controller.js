@@ -92,6 +92,16 @@ export default class extends Controller {
     }, 500)
   }
 
+  updateRangeValue(event) {
+    // Cette méthode est appelée quand le slider de stress change
+    // On peut afficher la valeur si nécessaire
+    const value = event.target.value
+    const label = event.target.closest('.stress-slider')?.querySelector('.stress-value')
+    if (label) {
+      label.textContent = value
+    }
+  }
+
   selectOption(event) {
     const container = event.currentTarget.closest('.options-container')
     const isMultiple = container.dataset.multiple === 'true'
