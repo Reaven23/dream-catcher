@@ -18,16 +18,13 @@ class DreamsController < ApplicationController
     @dream = current_user.dreams.build(dream_params)
 
     if @dream.save
-      # Générer l'analyse avec l'IA (retourne titre + analyse)
       interpreter = DreamInterpreterService.new(@dream, current_user)
       result = interpreter.interpret
 
-      # Mettre à jour le titre avec celui généré par l'IA
       if result[:title].present?
         @dream.update(title: result[:title])
       end
 
-      # Créer l'analyse
       @dream.create_analysis(interpretation: result[:analysis])
 
       redirect_to @dream, notice: 'Votre rêve a été analysé avec succès.'

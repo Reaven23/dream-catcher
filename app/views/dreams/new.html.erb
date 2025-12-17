@@ -29,7 +29,7 @@
               <div class="text-danger mt-1"><%= @dream.errors[:content].first %></div>
             <% end %>
             <small class="form-text text-muted mt-2">
-              <i class="bi bi-lightbulb"></i> Le titre sera généré automatiquement par l'IA en fonction de votre rêve
+              <i class="bi bi-lightbulb"></i> Le titre sera généré automatiquement par Dream Catcher en fonction de votre rêve
             </small>
           </div>
 
@@ -40,20 +40,37 @@
         <% end %>
 
         <!-- Overlay de chargement -->
-        <div class="loading-overlay" data-loading-target="overlay" style="display: none;">
-          <div class="loading-spinner-container" data-loading-target="spinner">
-            <div class="mystic-spinner">
-              <div class="spinner-ring"></div>
-              <div class="spinner-ring"></div>
-              <div class="spinner-ring"></div>
+        <% if special_user? %>
+          <div class="loading-overlay" data-loading-target="overlay" style="display: none;">
+            <div class="loading-spinner-container" data-loading-target="spinner">
+              <div class="mystic-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+              </div>
+              <p class="loading-text">
+                <i class="bi bi-stars"></i><br>
+                Dream Catcher analyse ton rêve ma bewlllle...<br>
+                <small>J'espère que j'étais dedans en vrai, sinon pas ouf mais bon, on cherche quand même...</small>
+              </p>
             </div>
-            <p class="loading-text">
-              <i class="bi bi-stars"></i><br>
-              L'IA analyse votre rêve...<br>
-              <small>Plongez dans les mystères de votre inconscient</small>
-            </p>
           </div>
-        </div>
+        <% else %>
+          <div class="loading-overlay" data-loading-target="overlay" style="display: none;">
+            <div class="loading-spinner-container" data-loading-target="spinner">
+              <div class="mystic-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+              </div>
+              <p class="loading-text">
+                <i class="bi bi-stars"></i><br>
+                Dream Catcher analyse votre rêve ...<br>
+                <small>Plongez dans les mystères de votre inconscient</small>
+              </p>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

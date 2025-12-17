@@ -101,10 +101,17 @@
         <div class="spinner-moon">🌙</div>
       </div>
       <h2 class="loading-title">Analyse en cours...</h2>
-      <p class="loading-text">
-        L'IA analyse l'ensemble de vos rêves<br>
-        <small>Découverte des patterns et thèmes récurrents</small>
-      </p>
+      <% if special_user? %>
+        <p class="loading-text">
+          Dream Catcher analyse l'ensemble de tes rêves gorgeous<br>
+          <small>Découverte des patterns et thèmes récurrents</small><br>
+        </p>
+      <% else %>
+        <p class="loading-text">
+          Dream Catcher analyse l'ensemble de vos rêves<br>
+          <small>Découverte des patterns et thèmes récurrents</small>
+        </p>
+      <% end %>
       <div class="loading-dots">
         <span></span>
         <span></span>

@@ -10,7 +10,7 @@
           <i class="bi bi-moon-stars-fill"></i>
         </div>
         <h1 class="hero-title">Plongez dans vos rêves</h1>
-        <p class="hero-subtitle">Laissez l'IA révéler les mystères cachés de votre inconscient</p>
+        <p class="hero-subtitle">Laissez Dream Catcher révéler les mystères cachés de votre inconscient</p>
         <button type="button" class="btn btn-mystic-hero btn-lg" data-action="click->modal#open">
           <i class="bi bi-stars"></i> Enregistrer un rêve
         </button>
@@ -75,11 +75,19 @@
               <div class="spinner-ring"></div>
               <div class="spinner-ring"></div>
             </div>
-            <p class="loading-text">
-              <i class="bi bi-stars"></i><br>
-              L'IA analyse votre rêve...<br>
-              <small>Plongez dans les mystères de votre inconscient</small>
-            </p>
+            <% if special_user? %>
+              <p class="loading-text">
+                <i class="bi bi-stars"></i><br>
+                Dream Catcher analyse toujours ton rêve ma bewlllle...<br>
+                <small>Plonge dans les mystères de ton inconscient</small>
+              </p>
+            <% else %>
+              <p class="loading-text">
+                <i class="bi bi-stars"></i><br>
+                L'IA analyse votre rêve...<br>
+                <small>Plongez dans les mystères de votre inconscient</small>
+              </p>
+            <% end %>
           </div>
         </div>
       </div>
