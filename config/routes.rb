@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   resources :dreams, only: [:index, :show, :new, :create, :destroy]
+  post 'transcribe', to: 'transcriptions#create'
   get 'quiz/new', to: 'quiz#new', as: 'new_quiz'
   post 'quiz', to: 'quiz#create', as: 'quiz'
   resources :global_analyses, only: [:index, :show, :create, :destroy]

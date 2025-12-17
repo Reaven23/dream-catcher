@@ -53,6 +53,9 @@ gem "devise"
 # HTTP client for AI API calls
 gem "httparty"
 
+# OpenAI API client (for Whisper transcription)
+gem "ruby-openai"
+
 # Unified AI client (text + images) for OpenAI, etc.
 gem "ruby_llm", "~> 1.2.0"
 gem "nokogiri", "~> 1.16.7"

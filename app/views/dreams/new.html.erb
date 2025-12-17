@@ -16,15 +16,15 @@
             <% end %>
           </div>
 
-          <div class="mb-4" data-controller="speech">
+          <div class="mb-4" data-controller="whisper">
             <div class="d-flex justify-content-between align-items-center mb-2">
               <%= f.label :content, "Décrivez votre rêve en détail", class: "form-label mb-0" %>
-              <button type="button" class="btn btn-speech" data-speech-target="button" data-action="click->speech#toggle">
-                <i class="bi bi-mic"></i> Dicter mon rêve
+              <button type="button" class="btn btn-speech" data-whisper-target="button" data-action="click->whisper#toggle">
+                <i class="bi bi-mic"></i> Dicter mon reve
               </button>
             </div>
-            <div class="speech-status" data-speech-target="status" style="display: none;"></div>
-            <%= f.text_area :content, class: "form-control", placeholder: "Décrivez votre rêve avec le plus de détails possible. Incluez les lieux, les personnes, les actions, les émotions ressenties, les couleurs, les sons... Plus vous êtes détaillé, plus l'analyse sera précise.", rows: 10, data: { speech_target: "input" } %>
+            <div class="speech-status" data-whisper-target="status" style="display: none;"></div>
+            <%= f.text_area :content, class: "form-control", placeholder: "Décrivez votre rêve avec le plus de détails possible. Incluez les lieux, les personnes, les actions, les émotions ressenties, les couleurs, les sons... Plus vous êtes détaillé, plus l'analyse sera précise.", rows: 10, data: { whisper_target: "input" } %>
             <% if @dream.errors[:content].any? %>
               <div class="text-danger mt-1"><%= @dream.errors[:content].first %></div>
             <% end %>
