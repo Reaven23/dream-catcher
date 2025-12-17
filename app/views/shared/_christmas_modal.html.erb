@@ -1,0 +1,45 @@
+<div class="christmas-modal-overlay"
+     data-controller="christmas-modal"
+     data-christmas-modal-target="overlay"
+     data-action="click->christmas-modal#closeOnOverlay"
+     data-show-modal="<%= @show_christmas_modal %>"
+     style="display: none;">
+  <div class="christmas-modal-dialog" data-christmas-modal-target="dialog">
+    <div class="christmas-modal-header">
+      <div class="christmas-icon">
+        <i class="bi bi-snow"></i>
+        <span class="christmas-sparkle">✨</span>
+      </div>
+      <h2 class="christmas-modal-title">Joyeux Noël Gorgeous! 🎄</h2>
+      <button type="button" class="christmas-modal-close" data-action="click->christmas-modal#close">
+        <i class="bi bi-x-lg"></i>
+      </button>
+    </div>
+    <div class="christmas-modal-body">
+      <div class="christmas-content">
+        <p class="christmas-message">
+          Ce site est un petit cadeau de Noël spécialement créé pour toi.
+        </p>
+        <p class="christmas-message">
+          C'est un petit site d'interprétation des rêves, comme tu as une vie nocturne très active.
+          Et je parle bien évidemment que de tes rêves. 🙄😂
+          Tu vas d'abord remplir un petit quiz pour personnaliser ton expérience,
+          puis tu découvriras une application juste pour toi.
+        </p>
+        <p class="christmas-message">
+          Donc il y aura toute la partie rêves, qui sera la core feature mais...
+          Il y aura aussi un espace rien que pour toi, avec des petites fonctionnalités surprises
+          qui évolueront au fil du temps... 🌟
+        </p>
+        <p class="christmas-closing">
+          Prête à commencer ? ✨
+        </p>
+      </div>
+    </div>
+    <div class="christmas-modal-footer">
+      <button type="button" class="btn btn-christmas" data-action="click->christmas-modal#close">
+        Commencer le quiz
+      </button>
+    </div>
+  </div>
+</div>

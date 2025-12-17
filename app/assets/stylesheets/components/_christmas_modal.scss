@@ -1,0 +1,281 @@
+// ========================================
+// Modal de Noël
+// ========================================
+
+.christmas-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $mystic-bg-overlay;
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  padding: 1rem;
+
+  @media (max-width: 575.98px) {
+    padding: 0.5rem;
+  }
+}
+
+.christmas-modal-dialog {
+  background: linear-gradient(135deg, $mystic-bg-primary 0%, rgba(18, 36, 30, 0.98) 100%);
+  border: 2px solid $mystic-border-primary;
+  border-radius: $radius-xl;
+  box-shadow:
+    0 25px 80px rgba(0, 0, 0, 0.8),
+    0 0 60px rgba(27, 77, 62, 0.3),
+    0 0 120px rgba(230, 200, 104, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  transition: transform 0.3s ease;
+
+  // Animation d'étoiles mystiques en arrière-plan
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(230, 200, 104, 0.15) 1px, transparent 1px),
+      radial-gradient(circle at 80% 70%, rgba(27, 77, 62, 0.2) 1px, transparent 1px),
+      radial-gradient(circle at 50% 50%, rgba(230, 200, 104, 0.1) 1px, transparent 1px);
+    background-size: 100px 100px, 150px 150px, 200px 200px;
+    background-position: 0 0, 50px 50px, 100px 100px;
+    animation: snow 20s linear infinite;
+    pointer-events: none;
+    opacity: 0.4;
+    border-radius: $radius-xl;
+  }
+}
+
+@keyframes snow {
+  0% {
+    background-position: 0 0, 50px 50px, 100px 100px;
+  }
+  100% {
+    background-position: 0 1000px, 50px 1050px, 100px 1100px;
+  }
+}
+
+.christmas-modal-header {
+  padding: 2rem 2rem 1rem;
+  text-align: center;
+  position: relative;
+  border-bottom: 1px solid $mystic-border-primary;
+
+  @media (max-width: 575.98px) {
+    padding: 1.5rem 1rem 0.75rem;
+  }
+}
+
+.christmas-icon {
+  font-size: 4rem;
+  color: $mystic-gold;
+  margin-bottom: 1rem;
+  position: relative;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+
+  .christmas-sparkle {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    font-size: 2rem;
+    animation: sparkle 1.5s ease-in-out infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.2) rotate(180deg);
+  }
+}
+
+.christmas-modal-title {
+  font-family: 'Cinzel', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: $mystic-gold;
+  margin: 0;
+  text-shadow:
+    0 0 20px rgba(27, 77, 62, 0.5),
+    0 0 40px rgba(230, 200, 104, 0.3);
+
+  @media (max-width: 575.98px) {
+    font-size: 1.5rem;
+  }
+}
+
+.christmas-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  line-height: 1;
+  transition: color 0.2s ease, transform 0.2s ease;
+
+  &:hover {
+    color: #fff;
+    transform: rotate(90deg);
+  }
+}
+
+.christmas-modal-body {
+  padding: 2rem;
+
+  @media (max-width: 575.98px) {
+    padding: 1.5rem 1rem;
+  }
+}
+
+.christmas-content {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.8;
+}
+
+.christmas-intro {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: $mystic-gold;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  @media (max-width: 575.98px) {
+    font-size: 1.1rem;
+  }
+}
+
+.christmas-message {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  @media (max-width: 575.98px) {
+    font-size: 1rem;
+  }
+}
+
+.christmas-features {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: $mystic-gold;
+  margin: 1.5rem 0 1rem;
+
+  @media (max-width: 575.98px) {
+    font-size: 1rem;
+  }
+}
+
+.christmas-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1.5rem;
+
+  li {
+    padding: 0.75rem 0;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1rem;
+
+    i {
+      position: absolute;
+      left: 0;
+      color: $mystic-gold;
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 575.98px) {
+      font-size: 0.9rem;
+      padding-left: 1.75rem;
+    }
+  }
+}
+
+.christmas-closing {
+  text-align: center;
+  font-size: 1.1rem;
+  color: $mystic-gold;
+  margin-top: 1.5rem;
+  font-style: italic;
+
+  @media (max-width: 575.98px) {
+    font-size: 1rem;
+  }
+}
+
+.christmas-modal-footer {
+  padding: 1.5rem 2rem 2rem;
+  text-align: center;
+  border-top: 1px solid $mystic-border-primary;
+
+  @media (max-width: 575.98px) {
+    padding: 1rem;
+  }
+}
+
+.btn-christmas {
+  background: linear-gradient(135deg, $mystic-purple 0%, $mystic-pink 100%);
+  color: $mystic-text-primary;
+  border: 1px solid $mystic-border-primary;
+  padding: 0.75rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: $radius-md;
+  cursor: pointer;
+  transition: $transition-base;
+  box-shadow:
+    $mystic-shadow-sm,
+    0 0 20px rgba(230, 200, 104, 0.2);
+
+  &:hover {
+    background: linear-gradient(135deg, $mystic-pink 0%, $mystic-purple 100%);
+    border-color: $mystic-border-hover;
+    transform: translateY(-2px);
+    box-shadow:
+      $mystic-shadow-md,
+      0 0 30px rgba(230, 200, 104, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  @media (max-width: 575.98px) {
+    width: 100%;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+}

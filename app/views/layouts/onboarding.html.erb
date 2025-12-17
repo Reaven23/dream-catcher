@@ -26,5 +26,8 @@
     <% end %>
 
     <%= yield %>
+
+    <!-- Modal de Noël -->
+    <%= render 'shared/christmas_modal' if user_signed_in? %>
   </body>
 </html>

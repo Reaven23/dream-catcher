@@ -4,23 +4,21 @@ class QuizController < ApplicationController
 
   def new
     @user = current_user
-    # Rediriger si déjà complété
     redirect_to root_path if @user.onboarding_completed?
+
+    @show_christmas_modal = should_show_christmas_modal?
   end
 
   def create
     @user = current_user
 
-    # Mettre à jour avec les paramètres (même si certains sont vides)
     @user.assign_attributes(quiz_params)
 
-    # Toujours marquer comme complété, même si certains champs sont vides
     @user.onboarding_completed = true
 
     if @user.save
       redirect_to root_path, notice: 'Bienvenue dans DreamCatcher ! Vous pouvez maintenant enregistrer vos rêves.'
     else
-      # Si erreur de validation (email, etc.), on marque quand même comme complété
       @user.onboarding_completed = true
       @user.save(validate: false)
       redirect_to root_path, notice: 'Bienvenue dans DreamCatcher ! Vous pouvez maintenant enregistrer vos rêves.'
@@ -28,6 +26,18 @@ class QuizController < ApplicationController
   end
 
   private
+
+  def should_show_christmas_modal?
+    return false unless user_signed_in?
+    return false unless special_user?
+    return false if current_user.christmas_modal_shown_at.present?
+    account_created_recently = current_user.created_at > 24.hours.ago
+    account_created_recently
+  end
+
+  def special_user?
+    current_user&.email == ENV['SPECIAL_USER_EMAIL']
+  end
 
   def quiz_params
     params.require(:user).permit(

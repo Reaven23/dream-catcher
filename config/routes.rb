@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   resources :dreams, only: [:index, :show, :new, :create, :destroy]
   post 'transcribe', to: 'transcriptions#create'
+  post 'mark_christmas_modal_seen', to: 'home#mark_christmas_modal_seen'
   get 'quiz/new', to: 'quiz#new', as: 'new_quiz'
   post 'quiz', to: 'quiz#create', as: 'quiz'
   resources :global_analyses, only: [:index, :show, :create, :destroy]
