@@ -17,6 +17,12 @@ export default class extends Controller {
       return
     }
 
+    // Only show PWA install prompt on mobile devices
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    if (!isMobile) {
+      return // Don't show install prompt on desktop
+    }
+
     // Detect iOS Safari
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent)
