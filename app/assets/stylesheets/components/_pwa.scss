@@ -1,22 +1,22 @@
 // PWA Install Banner
 .pwa-install-banner {
   position: fixed;
-  bottom: 0;
+  top: 0;
   left: 0;
   right: 0;
   background: linear-gradient(135deg, rgba(18, 36, 30, 0.98), rgba(11, 14, 13, 0.98));
-  border-top: 1px solid rgba(230, 200, 104, 0.3);
+  border-bottom: 1px solid rgba(230, 200, 104, 0.3);
   padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   z-index: 9999;
-  animation: slideUp 0.3s ease;
+  animation: slideDown 0.3s ease;
 
-  @keyframes slideUp {
+  @keyframes slideDown {
     from {
-      transform: translateY(100%);
+      transform: translateY(-100%);
     }
     to {
       transform: translateY(0);
