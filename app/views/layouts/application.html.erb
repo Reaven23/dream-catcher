@@ -76,14 +76,16 @@
     </nav>
 
     <% if notice %>
-      <div class="alert alert-info alert-dismissible fade show mystic-alert" role="alert">
+      <div class="alert alert-info alert-dismissible fade show mystic-alert" role="alert"
+           data-controller="alert" data-alert-delay-value="4000">
         <%= notice %>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
     <% end %>
 
     <% if alert %>
-      <div class="alert alert-warning alert-dismissible fade show mystic-alert" role="alert">
+      <div class="alert alert-warning alert-dismissible fade show mystic-alert" role="alert"
+           data-controller="alert" data-alert-delay-value="5000">
         <%= alert %>
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
