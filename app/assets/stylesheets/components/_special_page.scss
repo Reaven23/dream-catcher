@@ -8,6 +8,7 @@
   background: linear-gradient(135deg, rgba(11, 14, 13, 0.95) 0%, rgba(26, 21, 37, 0.9) 100%);
   position: relative;
   overflow: hidden;
+  contain: layout style;
 
   &::before {
     content: '';
@@ -46,7 +47,6 @@
     color: #e8a4d0;
     margin: 0 0.5rem;
     animation: sparkle 2s ease-in-out infinite;
-    will-change: transform, opacity;
     transform: translateZ(0);
   }
 
@@ -83,6 +83,7 @@
     0 10px 40px rgba(0, 0, 0, 0.4),
     0 0 30px rgba(232, 164, 208, 0.2);
   transition: all 0.3s ease;
+  contain: layout paint;
 
   &:hover {
     border-color: rgba(232, 164, 208, 0.5);
@@ -105,7 +106,6 @@
     font-size: 2rem;
     color: #e8a4d0;
     animation: heartbeat 1.5s ease-in-out infinite;
-    will-change: transform;
     transform: translateZ(0);
   }
 
@@ -148,6 +148,7 @@
     0 10px 40px rgba(0, 0, 0, 0.4),
     0 0 30px rgba(179, 136, 221, 0.2);
   transition: all 0.3s ease;
+  contain: layout paint;
 
   &:hover {
     border-color: rgba(179, 136, 221, 0.5);
@@ -235,6 +236,7 @@
     0 10px 40px rgba(0, 0, 0, 0.4),
     0 0 30px rgba(245, 210, 128, 0.2);
   transition: all 0.3s ease;
+  contain: layout paint;
 
   &:hover {
     border-color: rgba(245, 210, 128, 0.5);
@@ -454,7 +456,6 @@
       color: #f5d280;
       margin-bottom: 1rem;
       animation: bounce 0.5s ease infinite;
-      will-change: transform;
       transform: translateZ(0);
     }
 

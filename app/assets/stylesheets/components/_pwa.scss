@@ -1,0 +1,87 @@
+// PWA Install Banner
+.pwa-install-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, rgba(18, 36, 30, 0.98), rgba(11, 14, 13, 0.98));
+  border-top: 1px solid rgba(230, 200, 104, 0.3);
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  z-index: 9999;
+  animation: slideUp 0.3s ease;
+
+  @keyframes slideUp {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+}
+
+.pwa-install-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #F5F2EB;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+
+  i {
+    color: $mystic-gold;
+    font-size: 1.25rem;
+  }
+}
+
+.pwa-install-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+
+  .btn-link {
+    color: rgba(245, 242, 235, 0.6);
+    text-decoration: none;
+
+    &:hover {
+      color: #F5F2EB;
+    }
+  }
+}
+
+// iOS specific styling
+.pwa-install-banner.pwa-ios {
+  .pwa-install-content {
+    flex: 1;
+
+    i.bi-box-arrow-up {
+      color: $mystic-gold;
+      margin: 0 0.25rem;
+    }
+  }
+}
+
+// Mobile adjustments
+@media (max-width: 575.98px) {
+  .pwa-install-banner {
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem 0.75rem;
+  }
+
+  .pwa-install-content {
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .pwa-install-actions {
+    width: 100%;
+    justify-content: center;
+  }
+}
