@@ -13,8 +13,10 @@ export default class extends Controller {
     this.audioContext = null
     this.customAudio = null
     this.audioPath = null
+    this.alarmInterval = null
+    this.modalElement = null
+    this.modalClickHandler = null
 
-    // Charger le son sauvegardé
     const savedAudioPath = localStorage.getItem('eggTimerAudioPath')
     if (savedAudioPath && this.hasAudioSelectTarget) {
       this.audioSelectTarget.value = savedAudioPath
@@ -24,15 +26,8 @@ export default class extends Controller {
 
   disconnect() {
     this.stopTimer()
-    // Fermer l'AudioContext pour éviter les fuites mémoire
-    if (this.audioContext && this.audioContext.state !== 'closed') {
-      this.audioContext.close().catch(e => console.log("Erreur fermeture AudioContext:", e))
-    }
-    // Libérer l'audio personnalisé
-    if (this.customAudio) {
-      this.customAudio.pause()
-      this.customAudio = null
-    }
+    this.stopAlarm()
+    this.removeModal()
   }
 
   start() {
@@ -43,10 +38,10 @@ export default class extends Controller {
     }
 
     const durations = {
-      "soft": 210,    // 3min30 (œuf à la coque)
-      "medium": 300, // 5min (œuf mollet)
-      "hard": 480,   // 8min (œuf dur)
-      "poached": 240 // 4min (œuf poché)
+      "soft": 5,
+      "medium": 300,
+      "hard": 480,
+      "poached": 240
     }
 
     this.remainingTime = durations[selectedType] || 0
@@ -60,6 +55,8 @@ export default class extends Controller {
 
   stop() {
     this.stopTimer()
+    this.stopAlarm()
+    this.removeModal()
     this.runningValue = false
     this.remainingTime = 0
     this.updateDisplay()
@@ -70,7 +67,6 @@ export default class extends Controller {
     this.interval = setInterval(() => {
       this.remainingTime--
       this.updateDisplay()
-
       if (this.remainingTime <= 0) {
         this.complete()
       }
@@ -87,11 +83,8 @@ export default class extends Controller {
   updateDisplay() {
     const minutes = Math.floor(this.remainingTime / 60)
     const seconds = this.remainingTime % 60
-    const formatted = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
+    this.displayTarget.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
 
-    this.displayTarget.textContent = formatted
-
-    // Barre de progression
     if (this.hasProgressTarget) {
       const progress = ((this.durationValue - this.remainingTime) / this.durationValue) * 100
       this.progressTarget.style.width = `${progress}%`
@@ -102,126 +95,132 @@ export default class extends Controller {
     this.stopTimer()
     this.runningValue = false
     this.playAlarm()
-    this.showNotification()
+    this.showModal()
     this.enableControls()
   }
 
   loadAudio(path) {
-    // Libérer l'ancien audio
     if (this.customAudio) {
       this.customAudio.pause()
       this.customAudio = null
     }
 
-    // Si pas de path (son par défaut), on ne charge rien
     if (!path || path === '') {
       this.audioPath = null
       return
     }
 
-    // Charger le son depuis le chemin
     this.audioPath = path
     this.customAudio = new Audio(path)
     this.customAudio.volume = 0.7
-
-    // Précharger le son
     this.customAudio.load()
-
-    // Sauvegarder le choix
     localStorage.setItem('eggTimerAudioPath', path)
   }
 
   handleAudioChange(event) {
-    const selectedPath = event.target.value
-    this.loadAudio(selectedPath)
+    this.loadAudio(event.target.value)
   }
 
   playAlarm() {
-    // Utiliser le son personnalisé s'il existe
     if (this.customAudio) {
+      this.customAudio.loop = true
       this.customAudio.currentTime = 0
-      this.customAudio.play().catch(e => {
-        console.log("Impossible de jouer le son personnalisé, utilisation du son par défaut")
-        this.playDefaultAlarm()
-      })
+      this.customAudio.play().catch(() => this.playDefaultAlarm())
       return
     }
-
-    // Sinon, utiliser le son par défaut
     this.playDefaultAlarm()
   }
 
-  playDefaultAlarm() {
-    // Créer un son d'alarme simple
-    try {
-      this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
-      const oscillator = this.audioContext.createOscillator()
-      const gainNode = this.audioContext.createGain()
+  stopAlarm() {
+    if (this.alarmInterval) {
+      clearInterval(this.alarmInterval)
+      this.alarmInterval = null
+    }
 
-      oscillator.connect(gainNode)
-      gainNode.connect(this.audioContext.destination)
+    if (this.customAudio) {
+      this.customAudio.pause()
+      this.customAudio.currentTime = 0
+      this.customAudio.loop = false
+    }
 
-      oscillator.frequency.value = 800
-      oscillator.type = 'sine'
-
-      gainNode.gain.setValueAtTime(0.3, this.audioContext.currentTime)
-      gainNode.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5)
-
-      oscillator.start(this.audioContext.currentTime)
-      oscillator.stop(this.audioContext.currentTime + 0.5)
-
-      // Répéter 3 fois
-      setTimeout(() => {
-        const osc2 = this.audioContext.createOscillator()
-        const gain2 = this.audioContext.createGain()
-        osc2.connect(gain2)
-        gain2.connect(this.audioContext.destination)
-        osc2.frequency.value = 800
-        osc2.type = 'sine'
-        gain2.gain.setValueAtTime(0.3, this.audioContext.currentTime)
-        gain2.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5)
-        osc2.start(this.audioContext.currentTime)
-        osc2.stop(this.audioContext.currentTime + 0.5)
-      }, 600)
-
-      setTimeout(() => {
-        const osc3 = this.audioContext.createOscillator()
-        const gain3 = this.audioContext.createGain()
-        osc3.connect(gain3)
-        gain3.connect(this.audioContext.destination)
-        osc3.frequency.value = 800
-        osc3.type = 'sine'
-        gain3.gain.setValueAtTime(0.3, this.audioContext.currentTime)
-        gain3.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5)
-        osc3.start(this.audioContext.currentTime)
-        osc3.stop(this.audioContext.currentTime + 0.5)
-      }, 1200)
-    } catch (e) {
-      console.log("Audio non disponible")
+    if (this.audioContext) {
+      try { this.audioContext.close() } catch (e) {}
+      this.audioContext = null
     }
   }
 
-  showNotification() {
-    // Notification visuelle
-    const notification = document.createElement('div')
-    notification.className = 'egg-timer-notification'
-    notification.innerHTML = `
-      <div class="egg-timer-notification-content">
-        <i class="bi bi-egg-fried"></i>
-        <h3>Votre œuf est prêt ! 🥚</h3>
-        <p>Bon appétit !</p>
+  playDefaultAlarm() {
+    try {
+      this.audioContext = new (window.AudioContext || window.webkitAudioContext)()
+    } catch (e) {
+      return
+    }
+
+    const beep = () => {
+      if (!this.audioContext || this.audioContext.state === 'closed') return
+      try {
+        const osc = this.audioContext.createOscillator()
+        const gain = this.audioContext.createGain()
+        osc.connect(gain)
+        gain.connect(this.audioContext.destination)
+        osc.frequency.value = 800
+        osc.type = 'sine'
+        gain.gain.setValueAtTime(0.3, this.audioContext.currentTime)
+        gain.gain.exponentialRampToValueAtTime(0.01, this.audioContext.currentTime + 0.5)
+        osc.start(this.audioContext.currentTime)
+        osc.stop(this.audioContext.currentTime + 0.5)
+      } catch (e) {}
+    }
+
+    beep()
+    this.alarmInterval = setInterval(beep, 1500)
+  }
+
+  showModal() {
+    this.removeModal()
+
+    const modal = document.createElement('div')
+    modal.className = 'egg-timer-modal-overlay show'
+    modal.innerHTML = `
+      <div class="egg-timer-modal-dialog">
+        <div class="egg-timer-modal-content">
+          <i class="bi bi-egg-fried"></i>
+          <h3>Ton œuf est prêt ma belle! 🥚</h3>
+          <p>Bon appétit !</p>
+          <button type="button" class="btn btn-mystic egg-timer-modal-close">
+            Fermer
+          </button>
+        </div>
       </div>
     `
-    document.body.appendChild(notification)
 
-    setTimeout(() => {
-      notification.classList.add('show')
-    }, 100)
+    this.modalClickHandler = (e) => {
+      if (e.target.classList.contains('egg-timer-modal-close') || e.target.classList.contains('egg-timer-modal-overlay')) {
+        this.closeModal()
+      }
+    }
 
-    setTimeout(() => {
-      notification.classList.remove('show')
-      setTimeout(() => notification.remove(), 300)
-    }, 3000)
+    modal.addEventListener('click', this.modalClickHandler)
+    document.body.appendChild(modal)
+    this.modalElement = modal
+  }
+
+  removeModal() {
+    if (this.modalElement) {
+      if (this.modalClickHandler) {
+        this.modalElement.removeEventListener('click', this.modalClickHandler)
+        this.modalClickHandler = null
+      }
+      if (this.modalElement.parentNode) {
+        this.modalElement.parentNode.removeChild(this.modalElement)
+      }
+      this.modalElement = null
+    }
+  }
+
+  closeModal() {
+    this.stopAlarm()
+    this.removeModal()
   }
 
   disableControls() {
