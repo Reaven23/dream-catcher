@@ -38,7 +38,7 @@ export default class extends Controller {
     }
 
     const durations = {
-      "soft": 210,
+      "soft": 3,
       "medium": 300,
       "hard": 480,
       "poached": 240
