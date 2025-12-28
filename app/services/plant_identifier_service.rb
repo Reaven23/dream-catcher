@@ -48,6 +48,7 @@ class PlantIdentifierService
       - Identifier la plante de la manière la plus précise possible (espèce ou au moins type).
       - Décrire brièvement la plante (aspect, particularités).
       - Fournir ses besoins principaux (soleil, eau, type de sol, exposition au vent, autres conseils).
+      - Indiquer si la plante est sans danger pour les chats (cat-friendly).
 
       Tu dois répondre STRICTEMENT avec un JSON valide (sans texte autour), au format:
       {
@@ -59,7 +60,8 @@ class PlantIdentifierService
           "soil": "Type de sol idéal (drainant, riche, acide, etc.).",
           "wind": "Sensibilité au vent / exposition recommandée.",
           "other": "Autres conseils d'entretien utiles généraux mais aussi spécifique à la photo que tu as vu"
-        }
+        },
+        "cat_friendly": "Information sur la toxicité pour les chats (ex: 'Non toxique pour les chats', 'Toxique pour les chats - éviter', 'Sans danger', etc.)."
       }
 
       Réponds uniquement avec cet objet JSON.
@@ -89,7 +91,8 @@ class PlantIdentifierService
       water_need: needs["water"],
       soil_need: needs["soil"],
       wind_need: needs["wind"],
-      other_needs: needs["other"]
+      other_needs: needs["other"],
+      cat_friendly: json["cat_friendly"]
     }
   end
 
@@ -101,7 +104,8 @@ class PlantIdentifierService
       water_need: "Arrosage modéré, laisser sécher légèrement la surface du sol entre deux arrosages.",
       soil_need: "Sol bien drainé, mélange terreau universel + perlite ou sable.",
       wind_need: "Éviter les courants d'air froid et le vent direct.",
-      other_needs: "Surveillez l'état des feuilles (couleur, taches) pour ajuster l'arrosage et la lumière."
+      other_needs: "Surveillez l'état des feuilles (couleur, taches) pour ajuster l'arrosage et la lumière.",
+      cat_friendly: "À vérifier selon l'espèce identifiée. En cas de doute, consultez un vétérinaire."
     }
   end
 end

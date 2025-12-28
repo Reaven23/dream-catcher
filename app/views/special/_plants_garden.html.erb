@@ -66,6 +66,9 @@
                   <% if plant.wind_need.present? %>
                     <li><strong>Vent :</strong> <%= plant.wind_need %></li>
                   <% end %>
+                  <% if plant.cat_friendly.present? %>
+                    <li><strong>🐱 Cat-friendly :</strong> <%= plant.cat_friendly %></li>
+                  <% end %>
                   <% if plant.other_needs.present? %>
                     <li><strong>Autres conseils :</strong> <%= plant.other_needs %></li>
                   <% end %>
