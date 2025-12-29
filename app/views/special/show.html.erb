@@ -97,7 +97,21 @@
     </div>
 
     <!-- Section Jardin de plantes IA -->
-    <%= render "plants_garden" %>
+    <div class="special-plants-card mystic-card mb-5">
+      <div class="special-plants-header">
+        <i class="bi bi-flower3"></i>
+        <h2>Ton petit jardin 🌿</h2>
+      </div>
+      <div class="special-plants-content text-center">
+        <p class="special-plants-description mb-4">
+          Envoie moi une photo de toutes tes plantes ma belle, je devine laquelle c'est et crée sa fiche d'entretien pour toi.<br>
+          Il y a pas moyen que tu resortes sans l'appart et le balcon le plus vert de CliCli !
+        </p>
+        <%= link_to plants_path, class: "btn btn-mystic btn-lg" do %>
+          <i class="bi bi-flower3"></i> Voir toutes mes plantes
+        <% end %>
+      </div>
+    </div>
 
     <div class="special-message-card mystic-card mb-5">
       <div class="special-message-header">

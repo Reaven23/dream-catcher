@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     delete :destroy_account
   end
 
-  resources :plants, only: [:create, :destroy]
+  resources :plants, only: [:index, :create, :destroy]
 
   # Page spéciale "Pour toi"
   get 'pour-toi', to: 'special#show', as: 'special_page'

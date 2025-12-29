@@ -2,6 +2,11 @@ class PlantsController < ApplicationController
   before_action :authenticate_user!
   before_action :ensure_special_user!
 
+  def index
+    @plants = current_user.plants.order(created_at: :desc)
+    @plant = Plant.new
+  end
+
   def create
     @plant = current_user.plants.build
     uploaded_photo = plant_params[:photo]
@@ -21,7 +26,7 @@ class PlantsController < ApplicationController
           render "special/plants_update"
         end
         format.html do
-          redirect_to special_page_path(anchor: 'plants'), notice: "Ta plante a été ajoutée à ton jardin 🌱"
+          redirect_to plants_path, notice: "Ta plante a été ajoutée à ton jardin 🌱"
         end
       end
     else
@@ -31,7 +36,7 @@ class PlantsController < ApplicationController
           render "special/plants_update"
         end
         format.html do
-          redirect_to special_page_path(anchor: 'plants'), alert: "Impossible d'ajouter la plante. Vérifie la photo et réessaie."
+          redirect_to plants_path, alert: "Impossible d'ajouter la plante. Vérifie la photo et réessaie."
         end
       end
     end
@@ -47,7 +52,7 @@ class PlantsController < ApplicationController
         render "special/plants_update"
       end
       format.html do
-        redirect_to special_page_path(anchor: 'plants'), notice: "La plante a été supprimée de ton jardin 🌿"
+        redirect_to plants_path, notice: "La plante a été supprimée de ton jardin 🌿"
       end
     end
   end
