@@ -47,13 +47,11 @@
               </li>
               <% if special_user? %>
                 <li class="nav-item">
-                  <%= link_to special_page_path, class: "nav-link" do %>
-                    <i class="bi bi-stars"></i> Pour toi
-                  <% end %>
+                  <%= link_to "Mes plantes", plants_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to plants_path, class: "nav-link" do %>
-                    <i class="bi bi-flower3"></i> Mes plantes
+                  <%= link_to special_page_path, class: "nav-link" do %>
+                    <i class="bi bi-stars"></i> Pour toi
                   <% end %>
                 </li>
               <% end %>
