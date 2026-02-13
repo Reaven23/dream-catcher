@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   # Les colonnes JSONB PostgreSQL gèrent nativement la sérialisation
 
-  # Options pour les champs du quiz
+
   GENRES = ["Femme", "Homme", "Non-binaire", "Autre", "Préfère ne pas répondre"].freeze
   SIGNES_ASTRO = ["Bélier", "Taureau", "Gémeaux", "Cancer", "Lion", "Vierge",
                   "Balance", "Scorpion", "Sagittaire", "Capricorne", "Verseau", "Poissons"].freeze
@@ -29,7 +29,6 @@ class User < ApplicationRecord
   STYLES_ANALYSE = ["Scientifique / psycho", "Symbolique / imagé", "Coaching / conseils", "Mélange"].freeze
 
   def quiz_completed?
-    # Le quiz est complété si onboarding_completed est true (peu importe les champs remplis)
     onboarding_completed?
   end
 

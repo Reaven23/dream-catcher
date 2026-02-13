@@ -53,21 +53,13 @@ class DashboardController < ApplicationController
 
   def quiz_params
     params.require(:user).permit(
-      # Infos personnelles
       :first_name, :age, :gender, :pays, :zodiac_sign,
-      # Sommeil et rêves
       :rappel_reves, :reves_lucides, :heure_sommeil,
-      # Contexte émotionnel
       :stress_niveau, :humeur_generale,
-      # Contexte de vie
       :situation_pro, :relationship_status,
-      # Rapport aux rêves
       :symbolisme, :vision_reves,
-      # Peurs et émotions
       :peurs_principales, :emotions_recurrentes,
-      # Préférences d'analyse
       :ton_prefere, :longueur_analyse, :style_prefere,
-      # Arrays
       source_stress: [], changements_recents: []
     )
   end
