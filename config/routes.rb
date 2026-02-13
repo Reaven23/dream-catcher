@@ -13,7 +13,6 @@ Rails.application.routes.draw do
   post 'quiz', to: 'quiz#create', as: 'quiz'
   resources :global_analyses, only: [:index, :show, :create, :destroy]
 
-  # Dashboard utilisateur
   resource :dashboard, only: [:show], controller: 'dashboard' do
     patch :update_profile
     patch :update_quiz
@@ -22,7 +21,6 @@ Rails.application.routes.draw do
 
   resources :plants, only: [:index, :create, :destroy]
 
-  # Page spéciale "Pour toi"
   get 'pour-toi', to: 'special#show', as: 'special_page'
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
