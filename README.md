@@ -2,6 +2,12 @@
 
 Une application Rails moderne pour l'interprétation des rêves avec intelligence artificielle.
 
+## 🌐 Accès et fonctionnalités IA
+
+Dream Catcher a été conçue principalement pour un usage personnel. L'application propose des **fonctionnalités d'interprétation des rêves par IA** (analyse de rêves, analyse globale) ; pour les utiliser en conditions réelles, il faut disposer du statut **special user**.
+
+**Vous souhaitez tester l'app et les features IA ?** N'hésitez pas à me contacter pour demander un accès special user — je serai ravi de vous le proposer pour que vous puissiez essayer.
+
 ## 🎯 Fonctionnalités
 
 - **Authentification** : Système d'authentification complet avec Devise
