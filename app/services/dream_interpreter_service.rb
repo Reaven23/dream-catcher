@@ -224,8 +224,8 @@ class DreamInterpreterService
     # Mode démo global (désactive tous les appels API IA)
     # return generate_demo_response if ai_demo_mode?
 
-    # En mode normal, seuls les special users avec clé API ont accès à l'IA
-    return generate_demo_response unless special_user?
+    # En mode normal, accès IA pour special user (ENV) ou rôle premium
+    return generate_demo_response unless can_use_dream_ia?
 
     api_key = ENV['OPENAI_API_KEY']
 
@@ -303,7 +303,7 @@ class DreamInterpreterService
   def call_ai_api_global(prompt)
     # return generate_demo_global_interpretation if ai_demo_mode?
 
-    return generate_demo_global_interpretation unless special_user?
+    return generate_demo_global_interpretation unless can_use_dream_ia?
 
     api_key = ENV['OPENAI_API_KEY']
 
@@ -344,6 +344,10 @@ class DreamInterpreterService
       Rails.logger.error("Erreur API IA: #{e.message}")
       generate_demo_global_interpretation
     end
+  end
+
+  def can_use_dream_ia?
+    special_user? || @user&.role == 'premium'
   end
 
   def special_user?

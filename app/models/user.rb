@@ -28,6 +28,12 @@ class User < ApplicationRecord
   LONGUEURS_ANALYSE = ["Très courte", "Moyenne", "Détaillée"].freeze
   STYLES_ANALYSE = ["Scientifique / psycho", "Symbolique / imagé", "Coaching / conseils", "Mélange"].freeze
 
+  ROLES = %w[new_user premium].freeze
+
+  def premium?
+    role == 'premium'
+  end
+
   def quiz_completed?
     # Le quiz est complété si onboarding_completed est true (peu importe les champs remplis)
     onboarding_completed?
