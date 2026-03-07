@@ -9,7 +9,6 @@ class User < ApplicationRecord
   has_many :global_analyses, dependent: :destroy
   has_many :plants, dependent: :destroy
 
-  # Les colonnes JSONB PostgreSQL gèrent nativement la sérialisation
 
 
   GENRES = ["Femme", "Homme", "Non-binaire", "Autre", "Préfère ne pas répondre"].freeze
